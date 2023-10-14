@@ -37,5 +37,6 @@ public class Skieur implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Abonnement abonnement;
+    
 
 }
