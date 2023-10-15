@@ -52,7 +52,6 @@ public class SkieurService implements ISkieurService{
 
         );
         log.info("fin methode addSkieurAndAssignToCourse");
-      //  t2= date sys - t1
         return null;
     }
 
