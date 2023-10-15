@@ -1,10 +1,13 @@
 package com.example.stationski.services;
 
 import com.example.stationski.entities.Abonnement;
+import com.example.stationski.entities.Skieur;
 import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.repositories.AbonnementRepository;
+import com.example.stationski.repositories.SkieurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.time.*;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.Set;
 public class AbonnementService implements IAbonnementService{
 
     AbonnementRepository abonnementRepository;
+    SkieurRepository skieurRepository;
     @Override
     public Set<Abonnement> getAbonnementByType(TypeAbonnement type) {
         return abonnementRepository.findByTypeAbon(type);
@@ -27,9 +31,9 @@ public class AbonnementService implements IAbonnementService{
 
     }
 
-    //@Override
-//    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
-  /*  public void retrieveAbonnements() {
+    @Override
+       @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+     public void retrieveAbonnements() {
         LocalDate today = LocalDate.now();
         LocalDate dateExpiration =today.plusDays(7);
         log.info("dateExpiration : "+dateExpiration);
@@ -39,13 +43,17 @@ public class AbonnementService implements IAbonnementService{
                     + " |num skieur : "+ aSkier.getNumSkieur()     + " | prenom :"+ aSkier.getPrenomS() + "|nom:  " + aSkier.getNomS());
         }
     }
-*/
-    // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
-  //  @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
-   /* public void showMonthlyRecurringRevenue() {
-        Float revenue = abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.MENSUEL)
-                + abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.SEMESTRIEL)/6
-                + abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.ANNUEL)/12;
-        log.info("Monthly Revenue = " + revenue);
-    }*/
+
+     @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
+     @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    public void showMonthlyRecurringRevenue() {
+         try {
+             float revenue = abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.MENSUEL)
+                     + abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.SEMESTRIEL) / 6
+                     + abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.ANNUEL) / 12;
+             log.info("Monthly Revenue = " + revenue);
+         } catch (Exception e) {
+             log.error("Error calculating monthly revenue: " + e.getMessage());
+         }
+    }
 }
