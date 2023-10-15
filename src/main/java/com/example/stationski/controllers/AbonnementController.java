@@ -21,8 +21,7 @@ public class AbonnementController {
     IAbonnementService abonnementService;
     @GetMapping("/retrieve-all-abonnementBytype/{typeAbonnement}")
     public Set<Abonnement> getAbonnementsBytype(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
-        Set<Abonnement> listAbonnement = abonnementService.getAbonnementByType(typeAbonnement);
-        return listAbonnement;
+        return abonnementService.getAbonnementByType(typeAbonnement);
     }
 
     @GetMapping("/getAbonnementsByDates/{date1}/{date2}")

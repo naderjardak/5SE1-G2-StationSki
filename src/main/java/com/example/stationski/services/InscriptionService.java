@@ -21,7 +21,7 @@ public class InscriptionService implements IInscriptionService{
     CoursRepository coursRepository;
     @Override
     public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
-        return null;
+        return (Set<Inscription>) new Inscription();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class InscriptionService implements IInscriptionService{
         Skieur skieur = skieurRepository.findByNumSkieur(numSkieur);
         int ageSkieur = UtilityFonction.calculateAge(skieur.getDateNaissance());
         log.info("age skieur : "+ageSkieur);
-        if(cours.getTypeCours().equals(TypeCours.COLLECTIF_ADULTE) & ageSkieur>18) {
+        if(cours.getTypeCours().equals(TypeCours.COLLECTIF_ADULTE) && ageSkieur>18) {
 
             if (cours.getInscriptions().size() < 6) {
                 Inscription ins = inscriptionRepository.save(inscription);
@@ -49,7 +49,7 @@ public class InscriptionService implements IInscriptionService{
                 ins.setCours(cours);
             }
         }
-         else if (cours.getTypeCours().equals(TypeCours.COLLECTIF_ENFANT) & ageSkieur<18) {
+         else if (cours.getTypeCours().equals(TypeCours.COLLECTIF_ENFANT) && ageSkieur<18) {
             if (cours.getInscriptions().size() < 6) {
                 Inscription ins = inscriptionRepository.save(inscription);
                 ins.setSkieur(skieur);

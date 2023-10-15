@@ -31,8 +31,8 @@ public class AbonnementService implements IAbonnementService{
 
     }
 
-    @Override
-       @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+      @Override
+       @Scheduled(cron = "*/30 * * * * *")
      public void retrieveAbonnements() {
         LocalDate today = LocalDate.now();
         LocalDate dateExpiration =today.plusDays(7);
@@ -56,4 +56,5 @@ public class AbonnementService implements IAbonnementService{
              log.error("Error calculating monthly revenue: " + e.getMessage());
          }
     }
+
 }
