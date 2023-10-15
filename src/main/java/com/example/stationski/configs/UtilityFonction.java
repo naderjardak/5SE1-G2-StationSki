@@ -9,7 +9,7 @@ public class UtilityFonction {
         throw new AssertionError("This class cannot be instantiated.");
     }
 
-     static int calculateAge(LocalDate dob)
+     public static int calculateAge(LocalDate dob)
     {
 
         LocalDate curDate = LocalDate.now();
