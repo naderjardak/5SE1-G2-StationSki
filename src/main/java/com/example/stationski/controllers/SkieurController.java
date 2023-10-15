@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/skieur")
 public class SkieurController {
     ISkieurService skieurService;
-    // http://localhost:8089/stationSki/skieur/assignSkieurToPiste/15/1
     @PutMapping("/assignSkieurToPiste/{numSkieur}/{numPiste}")
     public Skieur assignSkieurToPiste(@PathVariable("numSkieur")Long numSkieur,
                                         @PathVariable("numPiste")Long numPiste) {
@@ -23,7 +22,6 @@ public class SkieurController {
         return skieur;
     }
 
-    // http://localhost:8089/stationSki/skieur/addSkieurAndAssignToCourse/120
     @PostMapping("/addSkieurAndAssignToCourse/{numCours}")
     public Skieur addSkieurAndAssignToCourse(@RequestBody Skieur skieur,
                                       @PathVariable("numCours")Long numCours) {
