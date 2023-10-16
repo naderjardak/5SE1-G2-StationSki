@@ -1,4 +1,4 @@
-package com.example.stationski.Test;
+package com.example.stationski.test;
 
 import com.example.stationski.entities.Cours;
 import com.example.stationski.entities.Support;
@@ -26,7 +26,7 @@ public class CoursServiceTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this); // Initialize annotated mocks
+        MockitoAnnotations.initMocks(this);
         coursService = new CoursService(coursRepository);
     }
 
