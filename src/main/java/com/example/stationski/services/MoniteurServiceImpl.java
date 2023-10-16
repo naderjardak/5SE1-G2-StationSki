@@ -36,7 +36,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
-        return moniteurRepository.findById(idMoniteur).get();
+        return moniteurRepository.findById(idMoniteur).orElse(new Moniteur());
     }
 
     @Override
@@ -46,9 +46,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        Moniteur m1 = Moniteur.builder().build();
-        Moniteur m = moniteurRepository.save(moniteur);
-        return m;
+        return moniteurRepository.save(moniteur);
     }
 
     @Override

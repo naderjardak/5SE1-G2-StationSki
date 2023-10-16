@@ -11,6 +11,7 @@ public interface IAbonnementService {
     Set<Abonnement> getAbonnementByType(TypeAbonnement type);
 
     List<Abonnement> retrieveAbonnementByDates(LocalDate startDate, LocalDate endDate);
+    public void retrieveAbonnements();
 
- //   public void retrieveAbonnements();
+
 }

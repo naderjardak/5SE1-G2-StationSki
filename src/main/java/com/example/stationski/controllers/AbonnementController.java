@@ -19,17 +19,14 @@ import java.util.Set;
 @RequestMapping("/abonnement")
 public class AbonnementController {
     IAbonnementService abonnementService;
-    // http://localhost:8089/stationSki/abonnement/retrieve-all-abonnementBytype/MENSUEL
     @GetMapping("/retrieve-all-abonnementBytype/{typeAbonnement}")
     public Set<Abonnement> getAbonnementsBytype(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
-        Set<Abonnement> listAbonnement = abonnementService.getAbonnementByType(typeAbonnement);
-        return listAbonnement;
+        return abonnementService.getAbonnementByType(typeAbonnement);
     }
 
-    // http://localhost:8089/stationSki/abonnement/getAbonnementsByDates/2020-01-01/2023-12-31
     @GetMapping("/getAbonnementsByDates/{date1}/{date2}")
     public List<Abonnement> getAbonnementsByDates(@PathVariable("date1") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate startDate,
-                                                     @PathVariable("date2") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate endDate){
+                                                  @PathVariable("date2") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate endDate){
         return abonnementService.retrieveAbonnementByDates(startDate, endDate);
     }
 }
