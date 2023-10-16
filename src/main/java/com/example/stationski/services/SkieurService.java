@@ -1,8 +1,7 @@
 package com.example.stationski.services;
 
 import com.example.stationski.entities.*;
-import com.example.stationski.entities.Models.SkieurModels;
-import com.example.stationski.entities.Models.SkieurModels;
+import com.example.stationski.entities.models.SkieurModels;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.PisteRepository;
 import com.example.stationski.repositories.SkieurRepository;

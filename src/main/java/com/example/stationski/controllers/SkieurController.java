@@ -1,10 +1,9 @@
 package com.example.stationski.controllers;
 
 import com.example.stationski.entities.Couleur;
-import com.example.stationski.entities.Models.SkieurModels;
+import com.example.stationski.entities.models.SkieurModels;
 import com.example.stationski.entities.Skieur;
 import com.example.stationski.entities.TypeAbonnement;
-import com.example.stationski.entities.Models.SkieurModels;
 import com.example.stationski.services.ISkieurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.example.stationski.entities.Models;
+package com.example.stationski.entities.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

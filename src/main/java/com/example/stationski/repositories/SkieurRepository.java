@@ -13,7 +13,7 @@ import java.util.List;
 public interface SkieurRepository  extends JpaRepository<Skieur,Integer> {
 
 Skieur findByNumSkieur(Long numSkieur);
-List<Skieur> findByAbonnementTypeAbon(TypeAbonnement TypeAbonnement);
+List<Skieur> findByAbonnementTypeAbon(TypeAbonnement typeAbonnement);
 
 Skieur findByAbonnement(Abonnement abonnement);
 
