@@ -52,7 +52,6 @@ public class SkieurService implements ISkieurService{
         skieur.setInscriptions(new HashSet<>());
 
         Skieur.builder().nomS("sahli").numSkieur(123L).build();
-        LocalDateTime t1 = LocalDateTime.now();
         Cours cours = coursRepository.findByNumCours(numCourse);
         Skieur s = skieurRepository.save(skieur);
         Inscription inscription = new Inscription();
