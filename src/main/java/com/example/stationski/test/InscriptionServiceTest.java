@@ -5,12 +5,12 @@ import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.InscriptionRepository;
 import com.example.stationski.repositories.SkieurRepository;
 import com.example.stationski.services.InscriptionService;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
