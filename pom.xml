@@ -15,7 +15,7 @@
     <description>stationSki</description>
     <properties>
         <java.version>1.8</java.version>
-        <repository.ip>192.168.137.12</repository.ip>
+        <repository.ip>192.168.56.102</repository.ip>
     </properties>
     <dependencies>
         <dependency>
@@ -26,7 +26,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>

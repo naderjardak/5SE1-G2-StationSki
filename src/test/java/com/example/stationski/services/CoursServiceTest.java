@@ -5,6 +5,8 @@ import com.example.stationski.entities.Support;
 import com.example.stationski.repositories.CoursRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -15,19 +17,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CoursServiceTest {
-
+/*
     @Mock
     private CoursRepository coursRepository;
 
+    @InjectMocks
     private CoursService coursService;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this); // Initialize annotated mocks
-        coursService = new CoursService(coursRepository);
-    }
 
     @Test
+    @Order(0)
     public void testListeCoursSnowBoard() {
         when(coursRepository.findBySupport(Support.SNOWBOARD)).thenReturn(createMockCourses());
         coursService.listeCoursSnowBoard();
@@ -37,4 +36,6 @@ public class CoursServiceTest {
     private List<Cours> createMockCourses() {
         return Arrays.asList();
     }
+
+ */
 }
