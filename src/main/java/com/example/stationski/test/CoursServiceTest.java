@@ -7,6 +7,7 @@ import com.example.stationski.services.CoursService;
 
 
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -24,7 +25,7 @@ public class CoursServiceTest {
 
     private CoursService coursService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         coursService = new CoursService(coursRepository);
