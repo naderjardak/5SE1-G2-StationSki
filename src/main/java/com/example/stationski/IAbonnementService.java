@@ -1,4 +1,4 @@
-package com.example.stationski.services;
+package com.example.stationski;
 
 import com.example.stationski.entities.Abonnement;
 import com.example.stationski.entities.TypeAbonnement;

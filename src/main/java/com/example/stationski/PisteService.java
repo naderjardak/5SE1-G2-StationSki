@@ -1,4 +1,4 @@
-package com.example.stationski.services;
+package com.example.stationski;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

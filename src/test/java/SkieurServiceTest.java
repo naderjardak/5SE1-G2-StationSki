@@ -1,5 +1,4 @@
-package com.example.stationski.services;
-
+import com.example.stationski.SkieurService;
 import com.example.stationski.entities.*;
 import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.repositories.CoursRepository;
@@ -41,8 +40,6 @@ public class SkieurServiceTest {
         when(skieurRepository.findByNumSkieur(anyLong())).thenReturn(skieur);
         when(pisteRepository.findByNumPiste(anyLong())).thenReturn(piste);
         Skieur result = skieurService.assignSkieurToPiste(123L, 456L);
-
-        // Verify repository interactions
         verify(skieurRepository).findByNumSkieur(123L);
         verify(pisteRepository).findByNumPiste(456L);
         assertNotNull(result);
@@ -57,7 +54,6 @@ public class SkieurServiceTest {
         when(coursRepository.findByNumCours(anyLong())).thenReturn(cours);
         when(skieurRepository.save(any(Skieur.class))).thenReturn(skieur);
         Skieur result = skieurService.addSkieurAndAssignToCourse(skieurModel, numCourse);
-
         assertNotNull(result.getInscriptions());
         result.getInscriptions().forEach(inscription -> {
             assertEquals(cours, inscription.getCours());

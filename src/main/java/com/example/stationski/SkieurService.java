@@ -1,4 +1,4 @@
-package com.example.stationski.services;
+package com.example.stationski;
 
 import com.example.stationski.entities.*;
 import com.example.stationski.entities.model.SkieurModel;
@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
