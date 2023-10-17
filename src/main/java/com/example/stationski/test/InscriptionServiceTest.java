@@ -7,9 +7,11 @@ import com.example.stationski.repositories.SkieurRepository;
 import com.example.stationski.services.InscriptionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+@ExtendWith(MockitoExtension.class)
 public class InscriptionServiceTest {
 
     @InjectMocks
@@ -31,10 +35,7 @@ public class InscriptionServiceTest {
     @Mock
     private CoursRepository coursRepository;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
+
 
     @Test
     public void testGetSubscriptionByType() {
