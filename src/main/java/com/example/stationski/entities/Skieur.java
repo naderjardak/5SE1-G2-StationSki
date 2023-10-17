@@ -39,4 +39,6 @@ public class Skieur implements Serializable {
     private Abonnement abonnement;
 
 
+    public Skieur(long l, int i, String njr, String jardak, String s, String tunis) {
+    }
 }

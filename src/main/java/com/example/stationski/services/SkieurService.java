@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -24,10 +25,16 @@ public class SkieurService implements ISkieurService{
     public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
         log.info("debut methode assignSkieurToPiste");
         Skieur skieur = skieurRepository.findByNumSkieur(numSkieur);
-        Piste piste =pisteRepository.findByNumPiste(numPiste);
-        log.info("skieur "+skieur.getNumSkieur());
-        log.info("piste "+piste.getNomPiste());
+        Piste piste = pisteRepository.findByNumPiste(numPiste);
+        log.info("skieur " + skieur.getNumSkieur());
+        log.info("piste " + piste.getNomPiste());
+
+        if (skieur.getPistes() == null) {
+            skieur.setPistes(new HashSet<>());
+        }
+
         skieur.getPistes().add(piste);
+
         log.info("fin methode assignSkieurToPiste");
 
         return skieur;
@@ -36,28 +43,24 @@ public class SkieurService implements ISkieurService{
     @Transactional
     public Skieur addSkieurAndAssignToCourse(SkieurModel skieurModel, Long numCourse) {
         log.info("debut methode addSkieurAndAssignToCourse");
-        Skieur skieur=new Skieur();
+        Skieur skieur = new Skieur();
         skieur.setNumSkieur(skieurModel.getNumSkieur());
         skieur.setNomS(skieurModel.getNomS());
         skieur.setPrenomS(skieurModel.getPrenomS());
         skieur.setDateNaissance(skieurModel.getDateNaissance());
         skieur.setVille(skieurModel.getVille());
+        skieur.setInscriptions(new HashSet<>());
 
         Skieur.builder().nomS("sahli").numSkieur(123L).build();
-        // t1 = date systeme
+        LocalDateTime t1 = LocalDateTime.now();
         Cours cours = coursRepository.findByNumCours(numCourse);
         Skieur s = skieurRepository.save(skieur);
-        Set<Inscription> inscriptions ;
-        inscriptions= s.getInscriptions();
-        inscriptions.stream().forEach(
-                inscription ->  {
-                    inscription.setCours(cours);
-                    inscription.setSkieur(s);
-                }
-
-        );
+        Inscription inscription = new Inscription();
+        inscription.setCours(cours);
+        inscription.setSkieur(s);
+        skieur.getInscriptions().add(inscription);
         log.info("fin methode addSkieurAndAssignToCourse");
-        return null;
+        return skieur;
     }
 
     @Override
