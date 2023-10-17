@@ -21,8 +21,8 @@ public class InscriptionService implements IInscriptionService{
     CoursRepository coursRepository;
     @Override
     public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
-        Set<Inscription> inscriptions = inscriptionRepository.findByTypeAbonnement(typeAbonnement);
-        return inscriptions;
+
+        return inscriptionRepository.findByTypeAbonnement(typeAbonnement);
     }
 
     @Override
