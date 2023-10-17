@@ -2,6 +2,7 @@ package com.example.stationski.repositories;
 
 import com.example.stationski.entities.Inscription;
 import com.example.stationski.entities.Support;
+import com.example.stationski.entities.TypeAbonnement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,5 @@ public interface InscriptionRepository extends JpaRepository<Inscription,Integer
     List<Integer> numWeeksCoursOfMoniteurBySupport(@Param("numMoniteur") Long numMoniteur, @Param("support") Support support);
 
 
+    Object findByTypeAbonnement(TypeAbonnement typeAbonnement);
 }
