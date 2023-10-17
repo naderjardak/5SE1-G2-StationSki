@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface InscriptionRepository extends JpaRepository<Inscription,Integer> {
 
@@ -19,5 +20,6 @@ public interface InscriptionRepository extends JpaRepository<Inscription,Integer
     List<Integer> numWeeksCoursOfMoniteurBySupport(@Param("numMoniteur") Long numMoniteur, @Param("support") Support support);
 
 
-    Object findByTypeAbonnement(TypeAbonnement typeAbonnement);
+    public Set<Inscription> findByTypeAbonnement(TypeAbonnement typeAbonnement);
+
 }

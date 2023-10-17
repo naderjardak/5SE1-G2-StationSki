@@ -39,31 +39,31 @@ public class InscriptionServiceTest {
 
     @Test
     public void testGetSubscriptionByType() {
-        TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL; // Replace with a valid type
-        // Mock the behavior of inscriptionRepository to return a set of inscriptions
-        when(inscriptionRepository.findByTypeAbonnement(typeAbonnement)).thenReturn(new HashSet<>());
+        TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL;
+        Set<Inscription> expectedInscriptions = new HashSet<>();
 
-        Set<Inscription> subscriptions = inscriptionService.getSubscriptionByType(typeAbonnement);
-        assertNotNull(subscriptions);
-        // You can add more assertions here as needed
+
+        when(inscriptionRepository.findByTypeAbonnement(typeAbonnement)).thenReturn(expectedInscriptions);
+
+        Set<Inscription> inscriptions = inscriptionService.getSubscriptionByType(typeAbonnement);
+        assertNotNull(inscriptions);
+
     }
-
     @Test
     public void testAssignInscriptionToCours() {
-        Long numInscription = 1L; // Replace with a valid ID
-        Long numCours = 2L; // Replace with a valid ID
-        Inscription inscription = new Inscription(); // Create a valid Inscription object
+        Long numInscription = 1L;
+        Long numCours = 2L;
+        Inscription inscription = new Inscription();
 
-        // Mock the behavior of inscriptionRepository and coursRepository
+
         when(inscriptionRepository.findByNumInscription(numInscription)).thenReturn(inscription);
-        when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours()); // Replace with a valid Cours object
+        when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours());
 
         Inscription result = inscriptionService.assignInscriptionToCours(numInscription, numCours);
         assertNotNull(result);
-        // You can add more assertions here as needed
+
     }
 
-
-
+   
 }
 
