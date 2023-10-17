@@ -7,7 +7,6 @@ import com.example.stationski.repositories.PisteRepository;
 import com.example.stationski.repositories.SkieurRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -25,9 +24,6 @@ public class SkieurServiceTest {
     @InjectMocks
     private SkieurService skieurService;
 
-    @InjectMocks
-    private CoursService coursService;
-
     @Mock
     private SkieurRepository skieurRepository;
 
@@ -39,19 +35,21 @@ public class SkieurServiceTest {
 
 
     @Test
-    public void testAssignSkieurToPiste() {
+    public void testAssignSkieurToPiste_Success() {
         Skieur skieur = new Skieur();
         Piste piste = new Piste();
         when(skieurRepository.findByNumSkieur(anyLong())).thenReturn(skieur);
         when(pisteRepository.findByNumPiste(anyLong())).thenReturn(piste);
         Skieur result = skieurService.assignSkieurToPiste(123L, 456L);
+
+        // Verify repository interactions
         verify(skieurRepository).findByNumSkieur(123L);
         verify(pisteRepository).findByNumPiste(456L);
         assertNotNull(result);
     }
 
     @Test
-    public void testAddSkieurAndAssignToCourse() {
+    public void testAddSkieurAndAssignToCourse_Success() {
         SkieurModel skieurModel = new SkieurModel();
         Skieur skieur = Mockito.mock(Skieur.class);
         Long numCourse = 1L;
@@ -59,7 +57,15 @@ public class SkieurServiceTest {
         when(coursRepository.findByNumCours(anyLong())).thenReturn(cours);
         when(skieurRepository.save(any(Skieur.class))).thenReturn(skieur);
         Skieur result = skieurService.addSkieurAndAssignToCourse(skieurModel, numCourse);
+
         assertNotNull(result.getInscriptions());
+        result.getInscriptions().forEach(inscription -> {
+            assertEquals(cours, inscription.getCours());
+            assertEquals(skieur, inscription.getSkieur());
+        });
+        verify(coursRepository).findByNumCours(numCourse);
+        verify(skieurRepository).save(any(Skieur.class));
     }
+
 
 }
