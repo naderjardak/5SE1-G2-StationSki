@@ -70,6 +70,22 @@ public class InscriptionServiceTest {
 
 
     }
+    @Test
+    public void testAddInscriptionAndAssignToSkieurAndCourse() {
+        // Créez des objets fictifs pour les paramètres de la méthode
+        Inscription inscription = new Inscription();
+        Long numSkieur = 1L;
+        Long numCours = 2L;
+
+        // Définissez le comportement des objets mock (coursRepository, skieurRepository, inscriptionRepository)
+        when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours()); // Remplacez par votre implémentation réelle
+        when(skieurRepository.findByNumSkieur(numSkieur)).thenReturn(new Skieur()); // Remplacez par votre implémentation réelle
+
+ 
+        Inscription result = inscriptionService.addInscriptionAndAssignToSkieurAndCourse(inscription, numSkieur, numCours);
+
+
+    }
 
 }
 
