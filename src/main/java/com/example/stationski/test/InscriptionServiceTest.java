@@ -8,16 +8,21 @@ import com.example.stationski.services.InscriptionService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
+
 import java.util.HashSet;
+
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
 
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +53,7 @@ public class InscriptionServiceTest {
         Set<Inscription> inscriptions = inscriptionService.getSubscriptionByType(typeAbonnement);
         assertNotNull(inscriptions);
 
+
     }
     @Test
     public void testAssignInscriptionToCours() {
@@ -55,15 +61,18 @@ public class InscriptionServiceTest {
         Long numCours = 2L;
         Inscription inscription = new Inscription();
 
-
         when(inscriptionRepository.findByNumInscription(numInscription)).thenReturn(inscription);
         when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours());
+
 
         Inscription result = inscriptionService.assignInscriptionToCours(numInscription, numCours);
         assertNotNull(result);
 
+
     }
 
-   
 }
+
+
+
 
