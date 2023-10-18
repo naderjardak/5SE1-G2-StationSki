@@ -81,8 +81,8 @@ public class InscriptionServiceTest {
         when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours()); // Remplacez par votre implémentation réelle
         when(skieurRepository.findByNumSkieur(numSkieur)).thenReturn(new Skieur()); // Remplacez par votre implémentation réelle
 
- 
-        Inscription result = inscriptionService.addInscriptionAndAssignToSkieurAndCourse(inscription, numSkieur, numCours);
+
+        inscriptionService.addInscriptionAndAssignToSkieurAndCourse(inscription, numSkieur, numCours);
 
 
     }
