@@ -16,6 +16,12 @@
     <properties>
         <java.version>1.8</java.version>
 
+
+
+
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ./target/site/jacoco-aggregate/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
 
@@ -55,12 +61,9 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-<scope>test</scope>
+    <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
+
 
     </dependencies>
 
@@ -87,17 +90,21 @@
                 <version>0.8.7</version>
                 <executions>
                     <execution>
-
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
