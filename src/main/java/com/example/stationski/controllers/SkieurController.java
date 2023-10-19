@@ -4,7 +4,7 @@ import com.example.stationski.entities.Couleur;
 import com.example.stationski.entities.Skieur;
 import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.entities.model.SkieurModel;
-import com.example.stationski.ISkieurService;
+import com.example.stationski.services.ISkieurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

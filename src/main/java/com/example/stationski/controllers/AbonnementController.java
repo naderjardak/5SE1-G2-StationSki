@@ -2,7 +2,7 @@ package com.example.stationski.controllers;
 
 import com.example.stationski.entities.Abonnement;
 import com.example.stationski.entities.TypeAbonnement;
-import com.example.stationski.IAbonnementService;
+import com.example.stationski.services.IAbonnementService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;

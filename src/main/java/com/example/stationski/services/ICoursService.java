@@ -1,4 +1,4 @@
-package com.example.stationski;
+package com.example.stationski.services;
 
 public interface ICoursService {
 

@@ -1,4 +1,4 @@
-package com.example.stationski;
+package com.example.stationski.services;
 
 import com.example.stationski.entities.Inscription;
 import com.example.stationski.entities.Support;

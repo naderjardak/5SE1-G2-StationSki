@@ -1,4 +1,4 @@
-package com.example.stationski;
+package com.example.stationski.services;
 
 import com.example.stationski.entities.*;
 import com.example.stationski.entities.model.SkieurModel;
@@ -7,6 +7,7 @@ import com.example.stationski.repositories.PisteRepository;
 import com.example.stationski.repositories.SkieurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,9 +18,18 @@ import java.util.*;
 @Slf4j
 public class SkieurService implements ISkieurService{
 
+    @Autowired
     SkieurRepository skieurRepository;
+    @Autowired
     PisteRepository pisteRepository;
+    @Autowired
     CoursRepository coursRepository;
+
+    public SkieurService() {
+
+    }
+
+
     @Transactional
     public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
         log.info("debut methode assignSkieurToPiste");

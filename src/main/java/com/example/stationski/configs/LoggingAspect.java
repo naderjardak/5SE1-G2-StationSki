@@ -18,7 +18,7 @@ public class LoggingAspect {
         log.info("In method : " + name + " : ");
     }
 
-    @AfterReturning("execution( * com.example.stationski.SkieurService.*(..))")
+    @AfterReturning("execution( * com.example.stationski.services.SkieurService.*(..))")
     public void logMethodExit1(JoinPoint joinPoint) {
         String name = joinPoint.getSignature().getName();
         log.info("Out of method without errors : " + name );

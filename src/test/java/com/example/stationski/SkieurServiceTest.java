@@ -1,4 +1,4 @@
 package com.example.stationski;
 
-public interface IPisteService {
+public class SkieurServiceTest {
 }
