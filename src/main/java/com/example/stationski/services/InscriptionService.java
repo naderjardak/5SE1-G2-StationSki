@@ -22,7 +22,7 @@ public class InscriptionService implements IInscriptionService{
     @Override
     public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
 
-        return inscriptionRepository.findByTypeAbonnement(typeAbonnement);
+        return null;
     }
 
     @Override

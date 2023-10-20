@@ -20,6 +20,6 @@ public interface InscriptionRepository extends JpaRepository<Inscription,Integer
     List<Integer> numWeeksCoursOfMoniteurBySupport(@Param("numMoniteur") Long numMoniteur, @Param("support") Support support);
 
 
-    public Set<Inscription> findByTypeAbonnement(TypeAbonnement typeAbonnement);
+
 
 }

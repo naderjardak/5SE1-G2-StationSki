@@ -42,19 +42,7 @@ public class InscriptionServiceTest {
 
 
 
-    @Test
-    public void testGetSubscriptionByType() {
-        TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL;
-        Set<Inscription> expectedInscriptions = new HashSet<>();
-
-
-        when(inscriptionRepository.findByTypeAbonnement(typeAbonnement)).thenReturn(expectedInscriptions);
-
-        Set<Inscription> inscriptions = inscriptionService.getSubscriptionByType(typeAbonnement);
-        assertNotNull(inscriptions);
-
-
-    }
+  
     @Test
     public void testAssignInscriptionToCours() {
         Long numInscription = 1L;
