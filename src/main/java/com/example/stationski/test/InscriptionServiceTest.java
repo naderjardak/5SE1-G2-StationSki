@@ -16,10 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 
-import java.util.HashSet;
-
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -42,7 +38,7 @@ public class InscriptionServiceTest {
 
 
 
-  
+
     @Test
     public void testAssignInscriptionToCours() {
         Long numInscription = 1L;

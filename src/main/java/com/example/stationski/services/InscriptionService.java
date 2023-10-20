@@ -10,8 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -20,9 +21,9 @@ public class InscriptionService implements IInscriptionService{
     SkieurRepository skieurRepository;
     CoursRepository coursRepository;
     @Override
-    public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
+    public List<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
