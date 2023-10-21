@@ -5,8 +5,6 @@ import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.InscriptionRepository;
 import com.example.stationski.repositories.SkieurRepository;
 
-
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
