@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -21,9 +22,8 @@ public class InscriptionService implements IInscriptionService{
     SkieurRepository skieurRepository;
     CoursRepository coursRepository;
     @Override
-    public List<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
-
-        return Collections.emptyList();
+    public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
+        return Collections.emptySet();
     }
 
     @Override

@@ -28,4 +28,7 @@ public class Cours implements Serializable {
     @OneToMany(mappedBy ="cours" )
     @JsonIgnore
     private Set<Inscription> inscriptions;
+
+
+
 }

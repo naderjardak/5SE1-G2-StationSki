@@ -1,20 +1,24 @@
-package com.example.stationski.test;
+package com.example.stationski.services;
 
 import com.example.stationski.entities.*;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.InscriptionRepository;
 import com.example.stationski.repositories.SkieurRepository;
-import com.example.stationski.services.InscriptionService;
 
+
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
 
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.util.Collections;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,7 +26,8 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class InscriptionServiceTest {
+@Slf4j
+public class InscriptionServiceTestMockito {
 
     @InjectMocks
     private InscriptionService inscriptionService;
@@ -37,22 +42,38 @@ public class InscriptionServiceTest {
     private CoursRepository coursRepository;
 
 
+    @Test
+    public void testGetSubscriptionByType() {
+        TypeAbonnement type = TypeAbonnement.ANNUEL;
+        InscriptionService inscriptionService = Mockito.mock(InscriptionService.class);
+        Mockito.when(inscriptionService.getSubscriptionByType(type)).thenReturn(Collections.emptySet());
 
+        Set<Inscription> inscriptions = inscriptionService.getSubscriptionByType(type);
+
+        assertNotNull(inscriptions);
+        assertTrue(inscriptions.isEmpty());
+        log.info("Get==>"+inscriptions);
+
+
+    }
 
     @Test
     public void testAssignInscriptionToCours() {
-        Long numInscription = 1L;
-        Long numCours = 2L;
+
         Inscription inscription = new Inscription();
-
-        when(inscriptionRepository.findByNumInscription(numInscription)).thenReturn(inscription);
-        when(coursRepository.findByNumCours(numCours)).thenReturn(new Cours());
+        Mockito.when(inscriptionRepository.findByNumInscription(2L)).thenReturn(inscription);
 
 
-        Inscription result = inscriptionService.assignInscriptionToCours(numInscription, numCours);
-        assertNotNull(result);
+        Cours cours = new Cours();
+        cours.setNumCours(1L);
+        Mockito.when(coursRepository.findByNumCours(1L)).thenReturn(cours);
 
+        Inscription result = inscriptionService.assignInscriptionToCours(2L, 1L);
 
+        assertNotNull(result.getCours());
+        assertEquals(cours, result.getCours());
+        assertEquals(1L, result.getCours().getNumCours());
+        log.info("get=>"+result.getCours().getNumCours());
     }
     @Test
     public void testAddInscriptionAndAssignToSkieurAndCourse() {
@@ -74,7 +95,4 @@ public class InscriptionServiceTest {
     }
 
 }
-
-
-
 
