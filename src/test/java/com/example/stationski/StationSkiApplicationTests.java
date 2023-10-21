@@ -4,9 +4,9 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class StationSkiApplicationTest {
+public class StationSkiApplicationTests {
     @Test
-    void contextLoads(){
+    public void contextLoads(){
 
     }
 }

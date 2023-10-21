@@ -26,7 +26,6 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-@Slf4j
 public class InscriptionServiceTestMockito {
 
     @InjectMocks
@@ -52,8 +51,6 @@ public class InscriptionServiceTestMockito {
 
         assertNotNull(inscriptions);
         assertTrue(inscriptions.isEmpty());
-        log.info("Get==>"+inscriptions);
-
 
     }
 
@@ -73,7 +70,6 @@ public class InscriptionServiceTestMockito {
         assertNotNull(result.getCours());
         assertEquals(cours, result.getCours());
         assertEquals(1L, result.getCours().getNumCours());
-        log.info("get=>"+result.getCours().getNumCours());
     }
     @Test
     public void testAddInscriptionAndAssignToSkieurAndCourse() {
