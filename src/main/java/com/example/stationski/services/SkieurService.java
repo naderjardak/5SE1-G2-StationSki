@@ -25,10 +25,6 @@ public class SkieurService implements ISkieurService{
     @Autowired
     CoursRepository coursRepository;
 
-    public SkieurService() {
-
-    }
-
 
     @Transactional
     public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
