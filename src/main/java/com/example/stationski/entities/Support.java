@@ -1,4 +1,5 @@
-package com.example.stationski.entities;
+package com.
+        example.stationski.entities;
 
 public enum Support {
     SKI,SNOWBOARD
