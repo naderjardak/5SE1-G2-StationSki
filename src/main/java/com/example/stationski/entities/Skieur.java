@@ -38,4 +38,6 @@ public class Skieur implements Serializable {
     @JsonIgnore
     private Abonnement abonnement;
 
+    public Skieur(long l, long l1, String nader, String jardak, int i, String tunis) {
+    }
 }
