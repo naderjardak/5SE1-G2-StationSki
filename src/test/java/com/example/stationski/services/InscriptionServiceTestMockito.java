@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 @Slf4j
 public class InscriptionServiceTestMockito {
 
@@ -156,7 +159,7 @@ public class InscriptionServiceTestMockito {
 
     @Test
     public void testNumWeeksCoursOfMoniteurBySupport() {
-      
+
         Long numInstructor = 1L;
         Support support = Support.SKI;
 
