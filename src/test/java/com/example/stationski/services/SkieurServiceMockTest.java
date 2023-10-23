@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-public class SkieurServiceMockTest {
+class SkieurServiceMockTest {
 
     @InjectMocks
     private SkieurService skieurService;
@@ -39,7 +39,7 @@ public class SkieurServiceMockTest {
     Piste piste = new Piste();
 
     @Test
-    public void testAssignSkieurToPiste_Success() {
+    void testAssignSkieurToPiste_Success() {
         skieur.setIdSkieur(1L);
         piste.setIdPiste(1L);
 
@@ -51,7 +51,7 @@ public class SkieurServiceMockTest {
     }
 
     @Test
-    public void testAddSkieurAndAssignToCourse_Success() {
+    void testAddSkieurAndAssignToCourse_Success() {
         skieur.setIdSkieur(1L);
         piste.setIdPiste(1L);
 
@@ -67,7 +67,7 @@ public class SkieurServiceMockTest {
 
 
     @Test
-    public void testRetrieveSkieursByTypeAbonnement() {
+    void testRetrieveSkieursByTypeAbonnement() {
         TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL;
         Skieur skieur1 = new Skieur();
         Skieur skieur2 = new Skieur();
@@ -81,7 +81,7 @@ public class SkieurServiceMockTest {
     }
 
     @Test
-    public void testNombreSkieursParCouleurPiste() {
+    void testNombreSkieursParCouleurPiste() {
         Map<Couleur, Integer> couleurCount = new EnumMap<>(Couleur.class);
         for (Couleur couleur : Couleur.values()) {
             couleurCount.put(couleur,0);
