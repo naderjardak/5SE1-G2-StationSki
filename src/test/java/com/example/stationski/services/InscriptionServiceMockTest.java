@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @Slf4j
-public class InscriptionServiceMockTest {
+ class InscriptionServiceMockTest {
 
     @InjectMocks
     private InscriptionService inscriptionService;
@@ -50,7 +50,7 @@ public class InscriptionServiceMockTest {
 
 
     @Test
-    public void testGetSubscriptionByType() {
+     void testGetSubscriptionByType() {
         TypeAbonnement type = TypeAbonnement.ANNUEL;
         InscriptionService inscriptionService = Mockito.mock(InscriptionService.class);
         Mockito.when(inscriptionService.getSubscriptionByType(type)).thenReturn(Collections.emptySet());
@@ -63,7 +63,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAssignInscriptionToCours() {
+     void testAssignInscriptionToCours() {
 
         Inscription inscription = new Inscription();
         Mockito.when(inscriptionRepository.findByNumInscription(2L)).thenReturn(inscription);
@@ -81,7 +81,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAddInscriptionAndAssignToSkieurAndCourse_EmptyDatabase() {
+     void testAddInscriptionAndAssignToSkieurAndCourse_EmptyDatabase() {
 
 
         when(coursRepository.findByNumCours(Mockito.anyLong())).thenReturn(null);
@@ -95,7 +95,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAddInscriptionAndAssignToSkieurAndCourse_CourseNotFound() {
+     void testAddInscriptionAndAssignToSkieurAndCourse_CourseNotFound() {
         Skieur skieur = new Skieur();
         Inscription inscription = new Inscription();
 
@@ -108,7 +108,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAddInscriptionAndAssignToSkieurAndCourse_SkieurNotFound() {
+     void testAddInscriptionAndAssignToSkieurAndCourse_SkieurNotFound() {
         Cours cours = new Cours();
         Inscription inscription = new Inscription();
 
@@ -121,7 +121,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAddInscriptionAndAssignToSkieurAndCourse_IncompatibleAge() {
+     void testAddInscriptionAndAssignToSkieurAndCourse_IncompatibleAge() {
         Cours cours = new Cours();
         Skieur skieur = new Skieur();
         skieur.setDateNaissance(LocalDate.of(2000, 1, 1)); // Supposez que le skieur est né en 2000.
@@ -136,7 +136,7 @@ public class InscriptionServiceMockTest {
     }
 
     @Test
-    public void testAddInscriptionAndAssignToSkieurAndCourse_MaxInscriptionsReached() {
+     void testAddInscriptionAndAssignToSkieurAndCourse_MaxInscriptionsReached() {
         Cours cours = new Cours();
         Skieur skieur = new Skieur();
         Inscription inscription = new Inscription();
@@ -158,7 +158,7 @@ public class InscriptionServiceMockTest {
 
 
     @Test
-    public void testNumWeeksCoursOfMoniteurBySupport() {
+     void testNumWeeksCoursOfMoniteurBySupport() {
 
         Long numInstructor = 1L;
         Support support = Support.SKI;

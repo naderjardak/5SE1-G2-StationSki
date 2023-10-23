@@ -88,22 +88,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
     }
 
 
-//   @Test
-//   public void testAssignInscriptionToCours() {
-//
-//      Long numInscription = 1L;
-//      Long numCours = 2L;
-//
-//      Inscription inscription=inscriptionRepository.findByNumInscription(numInscription);
-//      Cours cours=coursRepository.findByNumCours(numCours);
-//      inscription.setCours(cours);
-//      inscriptionRepository.save(inscription);
-//
-//
-//      assertNotNull(inscription);
-//      assertEquals(numInscription, inscription.getNumInscription());
-//      assertEquals(numCours, inscription.getCours().getNumCours());
-//   }
+
 
 
 
