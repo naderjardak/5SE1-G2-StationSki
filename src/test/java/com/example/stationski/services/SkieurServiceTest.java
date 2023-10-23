@@ -3,15 +3,12 @@ import com.example.stationski.entities.*;
 import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.repositories.*;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -24,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
-public class SkieurServiceTest {
+class SkieurServiceTest {
 
     @Autowired
     SkieurRepository skieurRepository;
@@ -93,7 +90,6 @@ public class SkieurServiceTest {
         }
         skieur.getPistes().add(piste);
         assertNotNull(skieur,"ERROR");
-        assertTrue(skieur.getPistes().size()>0);
         assertTrue(skieur.getPistes().contains(piste));
     }
 
