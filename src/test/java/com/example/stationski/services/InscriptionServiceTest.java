@@ -1,93 +1,145 @@
 package com.example.stationski.services;
 import com.example.stationski.entities.*;
+import com.example.stationski.repositories.AbonnementRepository;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.InscriptionRepository;
 import com.example.stationski.repositories.SkieurRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
+
 import java.time.LocalDate;
+
 import java.util.Set;
 
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
 
  class InscriptionServiceTest {
 
-    @Autowired
-    InscriptionService inscriptionService;
 
     @Autowired
     InscriptionRepository inscriptionRepository;
+
+    @Autowired
+    InscriptionService inscriptionService;
     @Autowired
     SkieurRepository skieurRepository;
     @Autowired
     CoursRepository coursRepository;
 
 
+    @Autowired
+    AbonnementRepository abonnementRepository;
 
-    @Test
-     void testGetSubscriptionByType() {
+   Skieur skieur = Skieur.builder()
+           .numSkieur(25365478L)
+           .nomS("kabbous")
+           .prenomS("tessnime")
+           .dateNaissance(LocalDate.of(1999, 8, 25))
+           .ville("tunis")
+           .build();
+   Cours cours = Cours.builder()
+           .numCours(23L)
+           .typeCours(TypeCours.COLLECTIF_ADULTE)
+           .support(Support.SNOWBOARD)
+           .niveau(2)
+           .creneau(4)
+           .build();
+   Abonnement abonnement=Abonnement.builder()
+           .typeAbon(TypeAbonnement.ANNUEL)
+           .prixAbon(3.5f)
+           .numAbon(3L)
+           .build();
+   Inscription inscription=Inscription.builder()
+           .numInscription(1L)
+           .numSemaine(2)
+           .build();
 
-        Skieur skieur = new Skieur();
-        skieur.setNumSkieur(58754896L);
-        skieur.setNomS("kabus");
-        skieur.setPrenomS("tesnime");
-        skieur.setDateNaissance(LocalDate.of(1990, 5, 15));
-        skieur.setVille("ariana");
-
-        Abonnement abonnement = new Abonnement();
-        abonnement.setNumAbon(101L);
-        abonnement.setDateDebut(LocalDate.of(2023, 10, 1));
-        abonnement.setDateFin(LocalDate.of(2024, 9, 30));
-        abonnement.setPrixAbon(500.0f);
-        abonnement.setTypeAbon(TypeAbonnement.ANNUEL);
-
-        skieur.setAbonnement(abonnement);
-
+    @BeforeEach
+    void setUp() {
         skieur = skieurRepository.save(skieur);
-
-
-        Cours cours = new Cours();
-        cours.setNumCours(1L);
-        cours.setTypeCours(TypeCours.COLLECTIF_ADULTE);
-        cours.setSupport(Support.SNOWBOARD);
-        cours.setPrix(50.0f);
-        cours.setCreneau(1);
-        cours.setNiveau(2);
         cours = coursRepository.save(cours);
-
-
-        Inscription inscription = new Inscription();
-        inscription.setNumInscription(1L);
-        inscription.setNumSemaine(2);
+        skieur.setAbonnement(abonnement);
+        skieur=skieurRepository.save(skieur);
         inscription.setSkieur(skieur);
         inscription.setCours(cours);
-        inscriptionRepository.save(inscription);
+
+    }
+
+    @AfterEach
+    void tearDown(){
+        skieurRepository.deleteAll();
+        abonnementRepository.deleteAll();
+        inscriptionRepository.deleteAll();
+        coursRepository.deleteAll();
+    }
 
 
+
+    @Order(0)
+    @Test
+     void testGetSubscriptionByType() {
+        inscription=inscriptionRepository.save(inscription);
         TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL;
 
        Set<Inscription> inscriptionss = inscriptionRepository.findByTypeAbonnement(typeAbonnement);
 
-
-      assertNotNull(inscriptionss);
-//      assertEquals(12, inscriptionss.size()); // Il devrait y avoir une inscription
+        assertNotNull(inscriptionss);
+       assertEquals(1, inscriptionss.size());
        log.info("get inscription==> " + inscriptionss.size());
     }
 
+    @Order(1)
+    @Test
+     void testAssignInscriptionToCours() {
 
+        Inscription inscription = new Inscription();
+        inscription.setNumInscription(1L);
+        inscriptionRepository.save(inscription);
+
+
+       Cours cours = new Cours();
+       cours.setNumCours(2L);
+        coursRepository.save(cours);
+
+
+        Inscription existingInscription = inscriptionRepository.findByNumInscription(1L);
+
+
+        Cours existingCours = coursRepository.findByNumCours(2L);
+
+        log.info("Existing Inscription: " + existingInscription);
+        log.info("Existing Cours: " + existingCours);
+
+
+        assertNotNull(existingInscription, "L'inscription n'existe pas.");
+        assertNotNull(existingCours, "Le cours n'existe pas.");
+
+
+        assertNull(existingInscription.getCours(), "L'inscription a déjà un cours attribué.");
+
+
+        existingInscription.setCours(existingCours);
+        inscriptionRepository.save(existingInscription);
+
+
+        Inscription updatedInscription = inscriptionRepository.findByNumInscription(1L);
+        assertNotNull(updatedInscription.getCours(), "L'attribution du cours a échoué.");
+        assertEquals(cours.getNumCours(), updatedInscription.getCours().getNumCours(), "Numéro de cours incorrect.");
+
+        log.info("Updated Inscription with Cours: " + updatedInscription);
+    }
 
 
 
