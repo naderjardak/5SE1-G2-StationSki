@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
@@ -33,15 +33,11 @@ public class SkieurService implements ISkieurService{
         Piste piste = pisteRepository.findByNumPiste(numPiste);
         log.info("skieur " + skieur.getNumSkieur());
         log.info("piste " + piste.getNomPiste());
-
         if (skieur.getPistes() == null) {
             skieur.setPistes(new HashSet<>());
         }
-
         skieur.getPistes().add(piste);
-
         log.info("fin methode assignSkieurToPiste");
-
         return skieur;
     }
 

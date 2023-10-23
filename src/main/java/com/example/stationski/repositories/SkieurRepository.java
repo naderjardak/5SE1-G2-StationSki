@@ -7,11 +7,9 @@ import com.example.stationski.entities.TypeAbonnement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface SkieurRepository  extends JpaRepository<Skieur,Integer> {
 
 Skieur findByNumSkieur(Long numSkieur);
