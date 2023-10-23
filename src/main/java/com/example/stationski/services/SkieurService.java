@@ -79,5 +79,5 @@ public class SkieurService implements ISkieurService{
         return nombreSkieursParCouleurPiste;
     }
 
-    //test
+
 }
