@@ -27,6 +27,11 @@ public class AbonnementService implements IAbonnementService{
 
     }
 
+    @Override
+    public Abonnement getAbonnementById(int id) {
+        return abonnementRepository.findById(id).get();
+    }
+
     //@Override
 //    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
   /*  public void retrieveAbonnements() {
