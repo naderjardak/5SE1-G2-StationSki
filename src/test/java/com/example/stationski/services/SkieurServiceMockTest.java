@@ -58,7 +58,7 @@ public class SkieurServiceMockTest {
         SkieurModel skieurModel = new SkieurModel();
         Cours cours = new Cours();
 
-        Mockito.when(coursRepository.findByNumCours(eq(1L))).thenReturn(cours);
+        Mockito.when(coursRepository.findByNumCours(1L)).thenReturn(cours);
         Mockito.when(skieurRepository.save(any(Skieur.class))).thenReturn(skieur);
 
         Skieur result = skieurService.addSkieurAndAssignToCourse(skieurModel, 1L);
