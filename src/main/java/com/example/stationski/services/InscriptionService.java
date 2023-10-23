@@ -9,8 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,9 +25,11 @@ public class InscriptionService implements IInscriptionService{
     InscriptionRepository inscriptionRepository;
     SkieurRepository skieurRepository;
     CoursRepository coursRepository;
+
+
     @Override
     public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
-        return Collections.emptySet();
+        return inscriptionRepository.findByTypeAbonnement(typeAbonnement);
     }
 
     @Override
