@@ -5,7 +5,6 @@ import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.PisteRepository;
 import com.example.stationski.repositories.SkieurRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public class SkieurService implements ISkieurService{
 
@@ -77,7 +75,7 @@ public class SkieurService implements ISkieurService{
             nombreSkieursParCouleurPiste.put(c,skieurRepository.skieursByCouleurPiste(c).size());
 
         }
-        log.info("fin methode nombreSkieursParCouleurPiste");
+        log.info("fin methode nombreSkieursParCouleurPiste"+nombreSkieursParCouleurPiste.size());
 
         return nombreSkieursParCouleurPiste;
     }

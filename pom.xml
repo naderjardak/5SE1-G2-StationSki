@@ -15,7 +15,6 @@
     <description>stationSki</description>
     <properties>
         <java.version>1.8</java.version>
-        <repository.ip>192.168.56.102</repository.ip>
     </properties>
     <dependencies>
         <dependency>
@@ -95,10 +94,4 @@
             </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepos</id>
-            <url>http://${repository.ip}:8081/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
 </project>

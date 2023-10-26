@@ -1,26 +1,29 @@
 package com.example.stationski.services;
+import com.example.stationski.StationSkiApplication;
 import com.example.stationski.entities.*;
 import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.repositories.*;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
+@ContextConfiguration(classes = {StationSkiApplication.class})
 class SkieurServiceTest {
 
     @Autowired
@@ -66,22 +69,20 @@ class SkieurServiceTest {
             .build();
 
     @BeforeEach
-    void setUp() {
-        skieurRepository.deleteAll();
-        abonnementRepository.deleteAll();
-        inscriptionRepository.deleteAll();
-        pisteRepository.deleteAll();
-        coursRepository.deleteAll();
-        piste = pisteRepository.save(piste);
+    public void setUp()
+    {
+        piste=pisteRepository.save(piste);
         skieur = skieurRepository.save(skieur);
         cours = coursRepository.save(cours);
+        abonnement = abonnementRepository.save(abonnement);
         skieur.setAbonnement(abonnement);
         skieur=skieurRepository.save(skieur);
+
     }
+
 
     @Test
     @Order(0)
-    @Transactional
     void assignSkieurToPiste() {
         skieur = skieurRepository.findByNumSkieur(skieur.getNumSkieur());
         piste = pisteRepository.findByNumPiste(piste.getNumPiste());
@@ -91,6 +92,7 @@ class SkieurServiceTest {
         skieur.getPistes().add(piste);
         assertNotNull(skieur,"ERROR");
         assertTrue(skieur.getPistes().contains(piste));
+
     }
 
     @Test
@@ -117,6 +119,8 @@ class SkieurServiceTest {
         inscription.setSkieur(s);
         skieur.getInscriptions().add(inscription);
         assertNotNull(skieur.getNomS());
+        log.info("id======================================="+abonnement.getIdAbonnement());
+
     }
 
     @Test
@@ -130,6 +134,7 @@ class SkieurServiceTest {
     @Order(3)
     void nombreSkieursParCouleurPiste() {
         Map<Couleur,Integer> nombreSkieursParCouleurPiste = new EnumMap<>(Couleur.class);
+
         Couleur[] couleurs = Couleur.values();
         for(Couleur c: couleurs) {
             nombreSkieursParCouleurPiste.put(c,skieurRepository.skieursByCouleurPiste(c).size());

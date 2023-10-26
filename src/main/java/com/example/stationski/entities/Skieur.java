@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table( name = "Skieur")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Skieur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,4 @@ public class Skieur implements Serializable {
     @JsonIgnore
     private Abonnement abonnement;
 
-    public Skieur(long l, long l1, String nader, String jardak, int i, String tunis) {
-    }
 }
