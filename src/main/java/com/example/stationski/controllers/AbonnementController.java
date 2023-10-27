@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/abonnement")
 public class AbonnementController {
     IAbonnementService abonnementService;
