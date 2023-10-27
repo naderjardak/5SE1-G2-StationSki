@@ -14,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 @ContextConfiguration(classes = {StationSkiApplication.class})
 class SkieurServiceTest {
+
+    @Autowired
+    ISkieurService skieurService;
 
     @Autowired
     SkieurRepository skieurRepository;
@@ -84,15 +86,9 @@ class SkieurServiceTest {
     @Test
     @Order(0)
     void assignSkieurToPiste() {
-        skieur = skieurRepository.findByNumSkieur(skieur.getNumSkieur());
-        piste = pisteRepository.findByNumPiste(piste.getNumPiste());
-        if (skieur.getPistes() == null) {
-            skieur.setPistes(new HashSet<>());
-        }
-        skieur.getPistes().add(piste);
+        skieur=skieurService.assignSkieurToPiste(skieur.getNumSkieur(),piste.getNumPiste());
         assertNotNull(skieur,"ERROR");
         assertTrue(skieur.getPistes().contains(piste));
-
     }
 
     @Test
@@ -104,41 +100,24 @@ class SkieurServiceTest {
         skieurModel.setPrenomS(skieur.getPrenomS());
         skieurModel.setVille(skieur.getVille());
 
-        Skieur skieur = new Skieur();
-        skieur.setNumSkieur(skieurModel.getNumSkieur());
-        skieur.setNomS(skieurModel.getNomS());
-        skieur.setPrenomS(skieurModel.getPrenomS());
-        skieur.setDateNaissance(skieurModel.getDateNaissance());
-        skieur.setVille(skieurModel.getVille());
-        skieur.setInscriptions(new HashSet<>());
+        skieur=skieurService.addSkieurAndAssignToCourse(skieurModel,cours.getNumCours());
 
-        cours = coursRepository.findByNumCours(cours.getNumCours());
-        Skieur s = skieurRepository.save(skieur);
-        Inscription inscription = new Inscription();
-        inscription.setCours(cours);
-        inscription.setSkieur(s);
-        skieur.getInscriptions().add(inscription);
-        assertNotNull(skieur.getNomS());
-        log.info("id======================================="+abonnement.getIdAbonnement());
+        Inscription firstInscription = skieur.getInscriptions().iterator().next();
+        Cours coursOfFirstInscription = firstInscription.getCours();
 
+        assertEquals(1, skieur.getInscriptions().size());
+        assertEquals(cours, coursOfFirstInscription);
     }
 
     @Test
     @Order(2)
     void retrieveSkieursByTypeAbonnement() {
-        List<Skieur> skieurList=skieurRepository.findByAbonnementTypeAbon(TypeAbonnement.ANNUEL);
-        assertTrue(skieurList.size()>0);
+        assertTrue(skieurService.retrieveSkieursByTypeAbonnement(TypeAbonnement.ANNUEL).size()>0);
     }
 
     @Test
     @Order(3)
     void nombreSkieursParCouleurPiste() {
-        Map<Couleur,Integer> nombreSkieursParCouleurPiste = new EnumMap<>(Couleur.class);
-
-        Couleur[] couleurs = Couleur.values();
-        for(Couleur c: couleurs) {
-            nombreSkieursParCouleurPiste.put(c,skieurRepository.skieursByCouleurPiste(c).size());
-        }
-        assertEquals(4, nombreSkieursParCouleurPiste.size());
+        assertEquals(4, skieurService.nombreSkieursParCouleurPiste().size());
     }
 }

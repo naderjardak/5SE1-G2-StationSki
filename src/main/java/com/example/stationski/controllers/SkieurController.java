@@ -6,34 +6,37 @@ import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.services.ISkieurService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/skieur")
+@AllArgsConstructor
+@RequestMapping("skieur")
 public class SkieurController {
+    @Autowired
     ISkieurService skieurService;
-    @PutMapping("/assignSkieurToPiste/{numSkieur}/{numPiste}")
-    public Skieur assignSkieurToPiste(@PathVariable("numSkieur")Long numSkieur,
-                                        @PathVariable("numPiste")Long numPiste) {
+    @PutMapping("assignSkieurToPiste")
+    public Skieur assignSkieurToPiste(@RequestParam("numSkieur")Long numSkieur,
+                                        @RequestParam("numPiste")Long numPiste) {
         return skieurService.assignSkieurToPiste(numSkieur,numPiste);
     }
 
-    @PostMapping("/addSkieurAndAssignToCourse/{numCours}")
+    @PostMapping("addSkieurAndAssignToCourse")
     public Skieur addSkieurAndAssignToCourse(@RequestBody SkieurModel skieurM,
-                                             @PathVariable("numCours")Long numCours) {
+                                             @RequestParam("numCours")Long numCours) {
         return skieurService.addSkieurAndAssignToCourse(skieurM,numCours);
     }
 
 
-    @GetMapping("/retrieveSkieursByTypeAbonnement/{typeAbonnement}")
-    public List<Skieur> retrieveSkieursByTypeAbonnement(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
+    @GetMapping("retrieveSkieursByTypeAbonnement")
+    public List<Skieur> retrieveSkieursByTypeAbonnement(@RequestParam("typeAbonnement") TypeAbonnement typeAbonnement) {
         return skieurService.retrieveSkieursByTypeAbonnement(typeAbonnement);
     }
 
-    @GetMapping("/nombreSkieursParCouleurPiste")
+    @GetMapping("nombreSkieursParCouleurPiste")
     public Map<Couleur,Integer> nombreSkieursParCouleurPiste() {
         return skieurService.nombreSkieursParCouleurPiste();
     }
