@@ -23,7 +23,7 @@ public interface InscriptionRepository extends JpaRepository<Inscription,Integer
     List<Integer> numWeeksCoursOfMoniteurBySupport(@Param("numMoniteur") Long numMoniteur, @Param("support") Support support);
 
 
-        @Query("SELECT i FROM Inscription i WHERE i.skieur.abonnement.typeAbon = :typeAbonnement")
+        @Query("SELECT i from Inscription  i WHERE i.skieur.abonnement.typeAbon = :typeAbonnement")
         Set<Inscription> findByTypeAbonnement(@Param("typeAbonnement") TypeAbonnement typeAbonnement);
 
 
