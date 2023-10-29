@@ -5,7 +5,6 @@ import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.repositories.AbonnementRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
