@@ -14,6 +14,7 @@ import java.util.Set;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("/abonnement")
 public class AbonnementController {
     @Autowired

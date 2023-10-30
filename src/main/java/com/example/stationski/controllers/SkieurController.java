@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("skieur")
 public class SkieurController {
     @Autowired
