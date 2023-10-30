@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stationSki
+    networks:
+      springboot-mysql-net:
+  stationski:
+    container_name: abonnementservice
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+networks:
+  springboot-mysql-net:

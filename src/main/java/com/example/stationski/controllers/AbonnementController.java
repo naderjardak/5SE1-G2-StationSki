@@ -32,4 +32,5 @@ public class AbonnementController {
                                                      @PathVariable("date2") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate endDate){
         return abonnementService.retrieveAbonnementByDates(startDate, endDate);
     }
+
 }
