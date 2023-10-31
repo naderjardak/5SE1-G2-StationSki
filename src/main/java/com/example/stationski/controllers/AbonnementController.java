@@ -28,5 +28,6 @@ public class AbonnementController {
     public List<Abonnement> getAbonnementsByDates(@RequestParam("date1") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate startDate,
                                                      @RequestParam("date2") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate endDate){
         return abonnementService.retrieveAbonnementByDates(startDate, endDate);
+        
     }
 }
