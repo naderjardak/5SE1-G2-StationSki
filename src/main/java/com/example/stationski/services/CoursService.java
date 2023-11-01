@@ -31,18 +31,7 @@ public class CoursService implements   ICoursService{
 
     }
 
-//@Scheduled(cron = "*/15 * * * * *")
-// @Scheduled(cron = "*/15 * * * * *")
-   /* public void listeCoursSnowBoard() {
 
-        coursRepository.findBySupport(Support.SNOWBOARD).stream().forEach(
-                cours ->
-                {
-                  log.info("cours "+ cours.getNumCours()+" prix :"+cours.getPrix());
-                }
-        );
-
-    }*/
 }
 
 

@@ -6,6 +6,7 @@ import com.example.stationski.repositories.MoniteurRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +37,14 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
-        return moniteurRepository.findById(idMoniteur).get();
-    }
+        Optional<Moniteur> moniteur = moniteurRepository.findById(idMoniteur);
+
+        if (moniteur.isPresent()) {
+            return moniteur.get();
+        } else {
+
+            return null;
+        }    }
 
     @Override
     public void deleteMoniteur(Integer idMoniteur) {
@@ -46,7 +53,6 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        Moniteur m1 = Moniteur.builder().build();
         Moniteur m = moniteurRepository.save(moniteur);
         return m;
     }
