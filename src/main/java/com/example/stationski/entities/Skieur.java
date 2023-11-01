@@ -2,7 +2,6 @@ package com.example.stationski.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,12 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table( name = "Skieur")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Skieur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idSkieur")
-    private Integer idSkieur; // Clé primaire
+    private Long idSkieur; // Clé primaire
     private Long numSkieur;
     private String nomS;
     private String prenomS;

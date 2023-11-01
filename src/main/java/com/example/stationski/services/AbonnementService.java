@@ -27,6 +27,11 @@ public class AbonnementService implements IAbonnementService{
 
     }
 
+    @Override
+    public Abonnement getAbonnementById(int id) {
+        return abonnementRepository.findById(id).get();
+    }
+
     //@Override
 //    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
   /*  public void retrieveAbonnements() {
@@ -41,7 +46,7 @@ public class AbonnementService implements IAbonnementService{
     }
 */
     // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
-  //  @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    //  @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
    /* public void showMonthlyRecurringRevenue() {
         Float revenue = abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.MENSUEL)
                 + abonnementRepository.recurringRevenueByTypeSubEquals(TypeAbonnement.SEMESTRIEL)/6

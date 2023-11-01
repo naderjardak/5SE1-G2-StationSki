@@ -12,5 +12,7 @@ public interface IAbonnementService {
 
     List<Abonnement> retrieveAbonnementByDates(LocalDate startDate, LocalDate endDate);
 
- //   public void retrieveAbonnements();
+    Abonnement getAbonnementById(int id);
+
+    //   public void retrieveAbonnements();
 }

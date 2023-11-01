@@ -3,47 +3,43 @@ package com.example.stationski.controllers;
 import com.example.stationski.entities.Couleur;
 import com.example.stationski.entities.Skieur;
 import com.example.stationski.entities.TypeAbonnement;
+import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.services.ISkieurService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/skieur")
+@CrossOrigin(origins = "*")
+@RequestMapping("skieur")
 public class SkieurController {
+    @Autowired
     ISkieurService skieurService;
-    // http://localhost:8089/stationSki/skieur/assignSkieurToPiste/15/1
-    @PutMapping("/assignSkieurToPiste/{numSkieur}/{numPiste}")
-    public Skieur assignSkieurToPiste(@PathVariable("numSkieur")Long numSkieur,
-                                        @PathVariable("numPiste")Long numPiste) {
-        Skieur skieur = skieurService.assignSkieurToPiste(numSkieur,numPiste);
-        return skieur;
+    @PutMapping("assignSkieurToPiste")
+    public Skieur assignSkieurToPiste(@RequestParam("numSkieur")Long numSkieur,
+                                      @RequestParam("numPiste")Long numPiste) {
+        return skieurService.assignSkieurToPiste(numSkieur,numPiste);
     }
 
-    // http://localhost:8089/stationSki/skieur/addSkieurAndAssignToCourse/120
-    @PostMapping("/addSkieurAndAssignToCourse/{numCours}")
-    public Skieur addSkieurAndAssignToCourse(@RequestBody Skieur skieur,
-                                      @PathVariable("numCours")Long numCours) {
-        Skieur s = skieurService.addSkieurAndAssignToCourse(skieur,numCours);
-        return s;
+    @PostMapping("addSkieurAndAssignToCourse")
+    public Skieur addSkieurAndAssignToCourse(@RequestBody SkieurModel skieurM,
+                                             @RequestParam("numCours")Long numCours) {
+        return skieurService.addSkieurAndAssignToCourse(skieurM,numCours);
     }
 
 
-    // http://localhost:8089/stationSki/skieur/retrieveSkieursByTypeAbonnement/MENSUEL
-    @GetMapping("/retrieveSkieursByTypeAbonnement/{typeAbonnement}")
-    public List<Skieur> retrieveSkieursByTypeAbonnement(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
-        List<Skieur> listSkieurs = skieurService.retrieveSkieursByTypeAbonnement(typeAbonnement);
-        return listSkieurs;
+    @GetMapping("retrieveSkieursByTypeAbonnement")
+    public List<Skieur> retrieveSkieursByTypeAbonnement(@RequestParam("typeAbonnement") TypeAbonnement typeAbonnement) {
+        return skieurService.retrieveSkieursByTypeAbonnement(typeAbonnement);
     }
 
-    // http://localhost:8089/stationSki/skieur/nombreSkieursParCouleurPiste
-    @GetMapping("/nombreSkieursParCouleurPiste")
-    public  HashMap<Couleur,Integer> nombreSkieursParCouleurPiste() {
-        HashMap<Couleur,Integer> nombreSkieursParCouleurPiste = skieurService.nombreSkieursParCouleurPiste();
-        return nombreSkieursParCouleurPiste;
+    @GetMapping("nombreSkieursParCouleurPiste")
+    public Map<Couleur,Integer> nombreSkieursParCouleurPiste() {
+        return skieurService.nombreSkieursParCouleurPiste();
     }
 
 }

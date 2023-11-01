@@ -1,59 +1,64 @@
 package com.example.stationski.services;
 
 import com.example.stationski.entities.*;
+import com.example.stationski.entities.model.SkieurModel;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.PisteRepository;
 import com.example.stationski.repositories.SkieurRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.transaction.Transactional;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public class SkieurService implements ISkieurService{
 
+    @Autowired
     SkieurRepository skieurRepository;
+    @Autowired
     PisteRepository pisteRepository;
+    @Autowired
     CoursRepository coursRepository;
+
+
     @Transactional
     public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
         log.info("debut methode assignSkieurToPiste");
         Skieur skieur = skieurRepository.findByNumSkieur(numSkieur);
-        Piste piste =pisteRepository.findByNumPiste(numPiste);
-        log.info("skieur "+skieur.getNumSkieur());
-        log.info("piste "+piste.getNomPiste());
+        Piste piste = pisteRepository.findByNumPiste(numPiste);
+        log.info("skieur " + skieur.getNumSkieur());
+        log.info("piste " + piste.getNomPiste());
+        if (skieur.getPistes() == null) {
+            skieur.setPistes(new HashSet<>());
+        }
         skieur.getPistes().add(piste);
         log.info("fin methode assignSkieurToPiste");
-
         return skieur;
     }
 
     @Transactional
-    public Skieur addSkieurAndAssignToCourse(Skieur skieur, Long numCourse) {
+    public Skieur addSkieurAndAssignToCourse(SkieurModel skieurModel, Long numCourse) {
         log.info("debut methode addSkieurAndAssignToCourse");
+        Skieur skieur = new Skieur();
+        skieur.setNumSkieur(skieurModel.getNumSkieur());
+        skieur.setNomS(skieurModel.getNomS());
+        skieur.setPrenomS(skieurModel.getPrenomS());
+        skieur.setDateNaissance(skieurModel.getDateNaissance());
+        skieur.setVille(skieurModel.getVille());
+        skieur.setInscriptions(new HashSet<>());
+
         Skieur.builder().nomS("sahli").numSkieur(123L).build();
-        // t1 = date systeme
         Cours cours = coursRepository.findByNumCours(numCourse);
         Skieur s = skieurRepository.save(skieur);
-        Set<Inscription> inscriptions = new HashSet<>();
-        inscriptions= s.getInscriptions();
-        inscriptions.stream().forEach(
-                inscription ->  {
-                    inscription.setCours(cours);
-                  //  inscription.setSkieur(s);
-                }
-
-        );
+        Inscription inscription = new Inscription();
+        inscription.setCours(cours);
+        inscription.setSkieur(s);
+        skieur.getInscriptions().add(inscription);
         log.info("fin methode addSkieurAndAssignToCourse");
-      //  t2= date sys - t1
-        return null;
+        return skieur;
     }
 
     @Override
@@ -62,16 +67,16 @@ public class SkieurService implements ISkieurService{
     }
 
     @Override
-    public HashMap<Couleur,Integer> nombreSkieursParCouleurPiste() {
+    public Map<Couleur,Integer> nombreSkieursParCouleurPiste() {
         log.info("debut methode nombreSkieursParCouleurPiste");
-        HashMap<Couleur,Integer> nombreSkieursParCouleurPiste = new HashMap<>();
-        Couleur couleurs[] = Couleur.values();
+        Map<Couleur,Integer> nombreSkieursParCouleurPiste = new EnumMap<>(Couleur.class);
+        Couleur[] couleurs = Couleur.values();
         for(Couleur c: couleurs) {
             nombreSkieursParCouleurPiste.put(c,skieurRepository.skieursByCouleurPiste(c).size());
 
         }
-        log.info("fin methode nombreSkieursParCouleurPiste");
-
+        log.info("------------------------------------------------"+nombreSkieursParCouleurPiste.size());
+        log.info("------------------------------------------------"+nombreSkieursParCouleurPiste);
         return nombreSkieursParCouleurPiste;
     }
 }
