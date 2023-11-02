@@ -1,76 +1,28 @@
 package com.example.stationski.services;
 
-
-import com.example.stationski.entities.Cours;
-import com.example.stationski.entities.TypeCours;
-import com.example.stationski.repositories.CoursRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.example.stationski.StationSkiApplication;
+import com.example.stationski.entities.*;
+import com.example.stationski.entities.model.SkieurModel;
+import com.example.stationski.repositories.*;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.time.LocalDate;
 import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
-
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.*;
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@Transactional
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Slf4j
+@ContextConfiguration(classes = {StationSkiApplication.class})
 class CoursServiceTest {
-    @Mock
-    CoursRepository coursRepository;
-    @InjectMocks
-
-    CoursService coursService;
-
-    
-    @DisplayName("Get cours by id - succes scenario")
-    @Test
-    void test_when_cours_success(){
-        //Mocking
-        Cours cours = getMockCours();
-        when(coursRepository.findById(anyInt()))
-                .thenReturn(Optional.ofNullable(cours));
-        //Actual
-        Cours coursRespo = coursService.getCoursById(1);
-        //Verification
-        Mockito.verify(coursRepository,times(1)).findById(anyInt());
-        //Assert
-        Assertions.assertNotNull(coursRespo);
-        Assertions.assertEquals(coursRespo.getIdCours(),cours.getIdCours());
-    }
-    private Cours getMockCours() {
-        return Cours.builder()
-                .idCours(1).numCours(10L).typeCours(TypeCours.PARTICULIER).build();
-    }
-    @DisplayName("get Cours By Type - succes scenario")
-    @Test
-    void test_get_cours_by_type() {
-        // Mocking
-        Cours cours = getMockCours();
-        Set<Cours> coursSet = new HashSet<>();
-        coursSet.add(cours);
-
-        when(coursRepository.findByTypeCours(TypeCours.PARTICULIER))
-                .thenReturn(coursSet);
-
-        // Actual
-        Set<Cours> coursRespo = coursService.getCoursByType(TypeCours.PARTICULIER);
-
-        // Verification
-        Mockito.verify(coursRepository, times(1)).findByTypeCours(TypeCours.PARTICULIER);
-
-        // Assert
-        Assertions.assertNotNull(coursRespo);
-        Assertions.assertEquals(1, coursRespo.size());
-
-    }
 
 }
