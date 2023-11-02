@@ -14,5 +14,4 @@ public interface IAbonnementService {
 
     Abonnement getAbonnementById(int id);
 
-    //   public void retrieveAbonnements();
 }

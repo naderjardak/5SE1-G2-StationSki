@@ -12,6 +12,5 @@ public interface ICoursService {
 
     Set<Cours> getCoursByType(TypeCours type);
 
-//    void listeCoursSnowBoard();
 
 }
