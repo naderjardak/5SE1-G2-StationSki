@@ -1,6 +1,5 @@
 package com.example.stationski;
 
-import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @EnableAspectJAutoProxy
 public class StationSkiApplication {
 
-    final static Logger logger = LoggerFactory.getLogger(StationSkiApplication.class);
+    final Logger logger = LoggerFactory.getLogger(StationSkiApplication.class);
 
 
     public static void main(String[] args) {
