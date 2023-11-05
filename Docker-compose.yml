@@ -10,13 +10,13 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  ibrahimbenkhalifa/stationski:
+  stationski:
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
     environment:
-      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
+      MYSQL_ROOT_PASSWORD: "123456"  # Set to an empty string
     ports:
       - "8089:8089"
     stdin_open: true
