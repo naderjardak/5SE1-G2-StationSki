@@ -1,27 +1,26 @@
-version: '3'
-
+version: "3.8"
 services:
-  app:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3307:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  gestion-station-ski:
+    depends_on:
+      - mysqldb
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
-    ports:
-      - 8089:8089
-    depends_on:
-      - db
-    volumes:
-      - .m2:/root/.m2
-
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
     ports:
-      - "3306:3306"
-    container_name: mysql_comp
-    volumes:
-      - /path/to/mysql/data:/var/lib/mysql
-      - /path/to/mysql/conf:/etc/mysql/conf.d
+      - "8089:8089"
+    stdin_open: true
+    tty: true
 
-
+volumes:
+  db:
