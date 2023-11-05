@@ -53,8 +53,8 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        Moniteur m = moniteurRepository.save(moniteur);
-        return m;
+        Moniteur moniteur1 = moniteurRepository.save(moniteur);
+        return moniteur1;
     }
 
     @Override

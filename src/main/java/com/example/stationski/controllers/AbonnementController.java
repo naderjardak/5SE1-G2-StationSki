@@ -22,8 +22,8 @@ public class AbonnementController {
     // http://localhost:8089/stationSki/abonnement/retrieve-all-abonnementBytype/MENSUEL
     @GetMapping("/retrieve-all-abonnementBytype/{typeAbonnement}")
     public Set<Abonnement> getAbonnementsBytype(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
-        Set<Abonnement> listAbonnement = abonnementService.getAbonnementByType(typeAbonnement);
-        return listAbonnement;
+        Set<Abonnement> abonnements = abonnementService.getAbonnementByType(typeAbonnement);
+        return abonnements;
     }
 
     // http://localhost:8089/stationSki/abonnement/getAbonnementsByDates/2020-01-01/2023-12-31
