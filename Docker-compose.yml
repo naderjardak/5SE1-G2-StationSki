@@ -24,14 +24,4 @@ services:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8080:80"
-    container_name: phpmyadmin_comp
-    depends_on:
-      - db
 
-volumes:
-  .m2:   # This should be a named volume, not a path
-  db:    # This should be a named volume, not an empty definition
