@@ -10,7 +10,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  gestion-station-ski:
+  ibrahimbenkhalifa/stationski:
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
