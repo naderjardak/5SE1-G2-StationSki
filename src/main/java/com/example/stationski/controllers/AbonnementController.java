@@ -4,6 +4,7 @@ import com.example.stationski.entities.Abonnement;
 import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.services.IAbonnementService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +19,15 @@ import java.util.Set;
 @AllArgsConstructor
 @RequestMapping("/abonnement")
 public class AbonnementController {
-    IAbonnementService abonnementService;
+    @Autowired
+    private IAbonnementService abonnementService;
+
     // http://localhost:8089/stationSki/abonnement/retrieve-all-abonnementBytype/MENSUEL
     @GetMapping("/retrieve-all-abonnementBytype/{typeAbonnement}")
     public Set<Abonnement> getAbonnementsBytype(@PathVariable("typeAbonnement") TypeAbonnement typeAbonnement) {
-        Set<Abonnement> abonnements = abonnementService.getAbonnementByType(typeAbonnement);
-        return abonnements;
+        return abonnementService.getAbonnementByType(typeAbonnement);
     }
+
 
     // http://localhost:8089/stationSki/abonnement/getAbonnementsByDates/2020-01-01/2023-12-31
     @GetMapping("/getAbonnementsByDates/{date1}/{date2}")
