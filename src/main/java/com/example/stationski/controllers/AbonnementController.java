@@ -20,7 +20,7 @@ import java.util.Set;
 @RequestMapping("/abonnement")
 public class AbonnementController {
     @Autowired
-    private IAbonnementService abonnementService;
+    IAbonnementService abonnementService;
 
     // http://localhost:8089/stationSki/abonnement/retrieve-all-abonnementBytype/MENSUEL
     @GetMapping("/retrieve-all-abonnementBytype/{typeAbonnement}")
