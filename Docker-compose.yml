@@ -4,7 +4,7 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: 123456
     ports:
       - "3307:3306"
     volumes:
@@ -27,12 +27,15 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
     ports:
       - "8084:80"
-    container_name: phpmyadmin_comp
-    depends_on:
-      - mysqldb  # Use the name 'mysqldb' instead of 'db'
-
 volumes:
-  db:
-  .m2:
+  bd:
