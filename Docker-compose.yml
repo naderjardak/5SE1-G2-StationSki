@@ -35,7 +35,6 @@ services:
     depends_on:
       - mysqldb
     environment:
-      PMA_HOST: mysqldb
       PMA_USER: root
       PMA_PASSWORD: 123456
 
