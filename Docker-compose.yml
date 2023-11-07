@@ -31,10 +31,7 @@ services:
       - "8084:80"
     container_name: phpmyadmin_comp
     depends_on:
-      - mysqldb
-    environment:
-     PMA_USER: root
-     PMA_PASSWORD: 123456
+      - db
 
 volumes:
   db:
