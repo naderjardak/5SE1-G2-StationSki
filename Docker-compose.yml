@@ -11,7 +11,7 @@ services:
 
   gestion-station-ski:
     depends_on:
-      - mysqldb
+      - mysql
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
     environment:
@@ -32,9 +32,9 @@ services:
       - "8084:80"
     container_name: phpmyadmin_comp
     depends_on:
-      - mysqldb
+      - mysql
     environment:
-      PMA_HOST: mysqldb
+      PMA_HOST: mysql
 
 
 volumes:
