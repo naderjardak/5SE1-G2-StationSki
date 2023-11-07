@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+
     ports:
       - "3307:3306"
     volumes:
@@ -25,17 +26,4 @@ services:
     volumes:
       - .m2:/root/.m2
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    restart: always
-    ports:
-      - "8084:80"
-volumes:
-  bd:
+
