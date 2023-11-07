@@ -17,7 +17,7 @@ public class CoursController {
     @Autowired
     ICoursService iCoursService;
     @PostMapping(value="addCours")
-    Cours addCours(@RequestParam Long numCours, @RequestParam TypeCours typeCours, @RequestParam Support support , @RequestParam Integer creneau) {
+    public Cours addCours(@RequestParam Long numCours, @RequestParam TypeCours typeCours, @RequestParam Support support , @RequestParam Integer creneau) {
         Cours cours = new Cours();
 
         cours.setNumCours(numCours);
