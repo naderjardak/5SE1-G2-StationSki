@@ -22,5 +22,17 @@ services:
     stdin_open: true
     tty: true
 
+    volumes:
+      - .m2:/root/.m2
+
+  phpmyadmin :
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - "8084:80"
+    container_name: phpmyadmin_comp
+    depends_on:
+        - db
+
 volumes:
   db:
+  .m2:
