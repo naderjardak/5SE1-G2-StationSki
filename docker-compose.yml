@@ -12,7 +12,7 @@ services:
     networks:
       springboot-mysql-net:
   app:
-    image: stationSki-1.1.5/stationski
+    image: mohsenfennnira/test:v1
     build:
       context: ./
       dockerfile: Dockerfile
