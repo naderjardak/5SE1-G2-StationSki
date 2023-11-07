@@ -1,42 +1,41 @@
 version: "3.8"
 services:
-  mysqldb:
+ gestion-station-ski:
+     depends_on:
+       - mysqldb
+     image: ibrahimbenkhalifa/stationski
+     restart: on-failure
+     environment:
+       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stationSki
+       SPRING_DATASOURCE_USERNAME: root
+       SPRING_DATASOURCE_PASSWORD: 123456
+     ports:
+       - "8089:8089"
+     stdin_open: true
+     tty: true
+     volumes:
+       - .m2:/root/.m2
+
+ db:
     image: mysql:5.7
-    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"
-      MYSQL_DATABASE: stationSki
+      MYSQL_ROOT_PASSWORD: 123456
     ports:
-      - "3307:3306"
+      - "3306:3306"
+    container_name: mysql_comp
     volumes:
-      - db:/var/lib/mysql
+      - /path/to/mysql/data:/var/lib/mysql
+      - /path/to/mysql/conf:/etc/mysql/conf.d
 
-  gestion-station-ski:
-    depends_on:
-      - mysqldb
-    image: ibrahimbenkhalifa/stationski
-    restart: on-failure
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stationSki
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 123456
-    ports:
-      - "8089:8089"
-    stdin_open: true
-    tty: true
-    volumes:
-      - .m2:/root/.m2
-
-  phpmyadmin:
+ phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
       - "8084:80"
     container_name: phpmyadmin_comp
     depends_on:
-      - mysqldb
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: 123456
+         - db
 
 volumes:
   db:
