@@ -25,13 +25,13 @@ services:
     volumes:
       - .m2:/root/.m2
 
-  phpmyadmin :
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-        - "8084:80"
+      - "8084:80"
     container_name: phpmyadmin_comp
     depends_on:
-        - db
+      - mysqldb  # Use the name 'mysqldb' instead of 'db'
 
 volumes:
   db:
