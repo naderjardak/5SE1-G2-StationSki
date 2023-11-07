@@ -4,6 +4,7 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: 123456
 
     ports:
