@@ -17,9 +17,9 @@ services:
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/your_database_name
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stationSki
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 123456  # Set your MySQL root password here
+      SPRING_DATASOURCE_PASSWORD: 123456
     ports:
       - "8089:8089"
     stdin_open: true
@@ -37,7 +37,7 @@ services:
     environment:
       PMA_HOST: mysqldb
       PMA_USER: root
-      PMA_PASSWORD: 123456  # Set your MySQL root password here
+      PMA_PASSWORD: 123456
 
 volumes:
   db:
