@@ -4,8 +4,8 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"  # Set your desired root password here
-      MYSQL_DATABASE: your_database_name
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: stationSki
     ports:
       - "3307:3306"
     volumes:
