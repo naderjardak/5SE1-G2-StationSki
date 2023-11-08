@@ -74,7 +74,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
-                <mainClass>com.example.StationSkiApplication</mainClass>
+                <mainClass>com.example.stationski.StationSkiApplication</mainClass>
                 <excludes>
                     <exclude>
                         <groupId>org.projectlombok</groupId>
