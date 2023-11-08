@@ -5,8 +5,8 @@ services:
     container_name: mysqldb
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stationSki
+      MYSQL_ROOT_USERNAME: "root"
+      MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - .m2:/root/.m2
     networks:
