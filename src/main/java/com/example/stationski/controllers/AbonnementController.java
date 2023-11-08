@@ -5,10 +5,7 @@ import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.services.IAbonnementService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +28,10 @@ public class AbonnementController {
     public List<Abonnement> getAbonnementsByDates(@PathVariable("date1") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate startDate,
                                                      @PathVariable("date2") @DateTimeFormat(pattern= "yyyy-MM-dd")  LocalDate endDate){
         return abonnementService.retrieveAbonnementByDates(startDate, endDate);
+    }
+    @PostMapping("add")
+    public Abonnement addAboonement(@RequestBody Abonnement abonnement) {
+        return abonnementService.addAboonement(abonnement);
     }
 
 }
