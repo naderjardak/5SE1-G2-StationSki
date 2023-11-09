@@ -27,17 +27,10 @@ public class CoursController {
         return iCoursService.addCours(cours);
     }
     @GetMapping("getCours")
-    public List<Cours> getCours() {
-        return iCoursService.getCours();
-    }
-
+    public List<Cours> getCours() {return iCoursService.getCours();}
     @GetMapping("getCoursById/{id}")
-    public ResponseEntity<Cours> getCoursById(@PathVariable("id") int idCours){
-        return ResponseEntity.ok(iCoursService.getCoursById(idCours));
-    }
+    public ResponseEntity<Cours> getCoursById(@PathVariable("id") int idCours){return ResponseEntity.ok(iCoursService.getCoursById(idCours));}
     @GetMapping("/retrieve-all-coursBytype/{typeCours}")
-    public Set<Cours> getCoursByType(@PathVariable("typeCours") TypeCours typeCours) {
-        return iCoursService.getCoursByType(typeCours);
-    }
+    public Set<Cours> getCoursByType(@PathVariable("typeCours") TypeCours typeCours) {return iCoursService.getCoursByType(typeCours);}
 
 }
