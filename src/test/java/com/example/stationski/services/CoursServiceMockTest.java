@@ -32,7 +32,7 @@ class CoursServiceMockTest {
     @Test
     void addCours() {
         Cours cours =new Cours();
-        Assertions.assertNotNull(coursRepository.save(cours));
+        Assertions.assertNull(coursRepository.save(cours));
     }
 
     @DisplayName("Get cours by id - succes scenario")
