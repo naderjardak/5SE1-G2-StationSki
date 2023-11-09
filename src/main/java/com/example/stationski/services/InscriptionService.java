@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,16 +45,13 @@ public class InscriptionService implements IInscriptionService{
             int ageSkieur = UtilityFonction.calculateAge(skieur.getDateNaissance());
             log.info("Âge du skieur : " + ageSkieur);
 
-            if (cours.getTypeCours() == TypeCours.COLLECTIF_ADULTE && ageSkieur > 18) {
-                if (cours.getInscriptions().size() < 6) {
-                    Inscription ins = new Inscription();
-                    ins.setSkieur(skieur);
-                    ins.setCours(cours);
-                    inscriptionRepository.save(ins);
-                    log.info("Le nombre d'inscriptions en cours est " + cours.getInscriptions().size());
-                    return ins;
-                }
-            } else if (cours.getTypeCours() == TypeCours.COLLECTIF_ENFANT && ageSkieur < 18) {
+
+            if (cours.getInscriptions() == null) {
+                cours.setInscriptions(new HashSet<>());
+            }
+
+            if ((cours.getTypeCours() == TypeCours.COLLECTIF_ADULTE && ageSkieur > 18)
+                    || (cours.getTypeCours() == TypeCours.COLLECTIF_ENFANT && ageSkieur < 18)) {
                 if (cours.getInscriptions().size() < 6) {
                     Inscription ins = new Inscription();
                     ins.setSkieur(skieur);
@@ -73,10 +71,12 @@ public class InscriptionService implements IInscriptionService{
     }
 
 
+
     @Override
     public List<Integer> numWeeksCoursOfMoniteurBySupport(Long numInstructor, Support support) {
-        return inscriptionRepository.numWeeksCoursOfMoniteurBySupport(numInstructor, support);
-
+        List<Integer> weeks = inscriptionRepository.numWeeksCoursOfMoniteurBySupport(numInstructor, support);
+        System.out.println("Weeks from repository: " + weeks);
+        return weeks;
     }
 
 
