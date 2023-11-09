@@ -12,9 +12,9 @@ public interface IAbonnementService {
 
     List<Abonnement> retrieveAbonnementByDates(LocalDate startDate, LocalDate endDate);
 
-    Abonnement getAbonnementById(int id);
+
 
     Abonnement addAboonement(Abonnement abonnement);
 
-    //   public void retrieveAbonnements();
+    
 }
