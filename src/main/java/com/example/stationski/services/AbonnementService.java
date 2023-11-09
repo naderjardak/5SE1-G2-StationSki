@@ -27,7 +27,10 @@ public class AbonnementService implements IAbonnementService{
 
     }
 
-
+    @Override
+    public Abonnement getAbonnementById(int id) {
+        return abonnementRepository.findById(id).get();
+    }
 
     @Override
     public Abonnement addAboonement(Abonnement abonnement) {
