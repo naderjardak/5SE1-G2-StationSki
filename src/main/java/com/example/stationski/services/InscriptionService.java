@@ -8,10 +8,10 @@ import com.example.stationski.repositories.SkieurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -19,9 +19,11 @@ public class InscriptionService implements IInscriptionService{
     InscriptionRepository inscriptionRepository;
     SkieurRepository skieurRepository;
     CoursRepository coursRepository;
+
+
     @Override
     public Set<Inscription> getSubscriptionByType(TypeAbonnement typeAbonnement) {
-        return (Set<Inscription>) new Inscription();
+        return inscriptionRepository.findByTypeAbonnement(typeAbonnement);
     }
 
     @Override
@@ -35,35 +37,41 @@ public class InscriptionService implements IInscriptionService{
 
     @Transactional
     public Inscription addInscriptionAndAssignToSkieurAndCourse(Inscription inscription, Long numSkieur, Long numCours) {
-
         Cours cours = coursRepository.findByNumCours(numCours);
         Skieur skieur = skieurRepository.findByNumSkieur(numSkieur);
-        int ageSkieur = UtilityFonction.calculateAge(skieur.getDateNaissance());
-        log.info("age skieur : "+ageSkieur);
-        if(cours.getTypeCours().equals(TypeCours.COLLECTIF_ADULTE) && ageSkieur>18) {
 
-            if (cours.getInscriptions().size() < 6) {
-                Inscription ins = inscriptionRepository.save(inscription);
-                ins.setSkieur(skieur);
-                log.info("le nombre d inscriptions en cours est " + cours.getInscriptions().size());
-                ins.setCours(cours);
-            }
-        }
-         else if (cours.getTypeCours().equals(TypeCours.COLLECTIF_ENFANT) && ageSkieur<18) {
-            if (cours.getInscriptions().size() < 6) {
-                Inscription ins = inscriptionRepository.save(inscription);
-                ins.setSkieur(skieur);
-                log.info("le nombre d inscriptions en cours est " + cours.getInscriptions().size());
-                ins.setCours(cours);
-            }
-        }
-            else {
-                log.info("le nombre d'inscription maximal à ce cours est atteint ou age incompatible" +
-                        " avec le cours");
-            }
+        if (cours != null && skieur != null) {
+            int ageSkieur = UtilityFonction.calculateAge(skieur.getDateNaissance());
+            log.info("Âge du skieur : " + ageSkieur);
 
-        return inscription;
+            if (cours.getTypeCours() == TypeCours.COLLECTIF_ADULTE && ageSkieur > 18) {
+                if (cours.getInscriptions().size() < 6) {
+                    Inscription ins = new Inscription();
+                    ins.setSkieur(skieur);
+                    ins.setCours(cours);
+                    inscriptionRepository.save(ins);
+                    log.info("Le nombre d'inscriptions en cours est " + cours.getInscriptions().size());
+                    return ins;
+                }
+            } else if (cours.getTypeCours() == TypeCours.COLLECTIF_ENFANT && ageSkieur < 18) {
+                if (cours.getInscriptions().size() < 6) {
+                    Inscription ins = new Inscription();
+                    ins.setSkieur(skieur);
+                    ins.setCours(cours);
+                    inscriptionRepository.save(ins);
+                    log.info("Le nombre d'inscriptions en cours est " + cours.getInscriptions().size());
+                    return ins;
+                }
+            } else {
+                log.info("Le nombre maximal d'inscriptions pour ce cours est atteint ou l'âge est incompatible avec le cours.");
+            }
+        } else {
+            log.error("Le cours ou le skieur est introuvable.");
+        }
+
+        return null;
     }
+
 
     @Override
     public List<Integer> numWeeksCoursOfMoniteurBySupport(Long numInstructor, Support support) {
