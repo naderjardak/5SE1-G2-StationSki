@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-
+@SpringBootTest
 @Slf4j
 class InscriptionServiceMockTest {
 
