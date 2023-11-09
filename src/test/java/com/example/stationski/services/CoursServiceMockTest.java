@@ -29,6 +29,9 @@ class CoursServiceMockTest {
 
     CoursService coursService;
 
+    @Test
+    void addCours() {
+    }
 
     @DisplayName("Get cours by id - succes scenario")
     @Test

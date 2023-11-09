@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -19,7 +20,7 @@ import java.util.Set;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class AbonnementServiceTest {
     @Mock
@@ -30,11 +31,15 @@ class AbonnementServiceTest {
     @DisplayName("Get abonnement by id - succes scenario")
     @Test
     void test_when_abonnement_success(){
+        //Mocking
         Abonnement abonnement = getMockAbonnement();
         when(abonnementRepository.findById(anyInt()))
                 .thenReturn(Optional.ofNullable(abonnement));
+        //Actual
         Abonnement abonnementRespo = abonnementService.getAbonnementById(1);
+        //Verification
         Mockito.verify(abonnementRepository,times(1)).findById(anyInt());
+        //Assert
         Assertions.assertNotNull(abonnementRespo);
         Assertions.assertEquals(abonnementRespo.getIdAbonnement(),abonnement.getIdAbonnement());
     }
@@ -45,15 +50,20 @@ class AbonnementServiceTest {
     @DisplayName("get Abonnement By Type - succes scenario")
     @Test
     void test_get_abon_by_type() {
+        // Mocking
         Abonnement abonnement = getMockAbonnement();
         Set<Abonnement> abonnementsSet = new HashSet<>();
         abonnementsSet.add(abonnement);
+
         when(abonnementRepository.findByTypeAbon(TypeAbonnement.ANNUEL))
                 .thenReturn(abonnementsSet);
+
         Set<Abonnement> abonnementRespo = abonnementService.getAbonnementByType(TypeAbonnement.ANNUEL);
+
         Mockito.verify(abonnementRepository, times(1)).findByTypeAbon(TypeAbonnement.ANNUEL);
         Assertions.assertNotNull(abonnementRespo);
         Assertions.assertEquals(1, abonnementRespo.size());
+
     }
 
 }
