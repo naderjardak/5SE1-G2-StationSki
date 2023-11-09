@@ -1,70 +1,68 @@
 package com.example.stationski.services;
+
+import com.example.stationski.StationSkiApplication;
 import com.example.stationski.entities.*;
-import com.example.stationski.repositories.AbonnementRepository;
-import com.example.stationski.repositories.CoursRepository;
-import com.example.stationski.repositories.InscriptionRepository;
-import com.example.stationski.repositories.SkieurRepository;
+import com.example.stationski.repositories.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
+@ContextConfiguration(classes = {StationSkiApplication.class}) // Replace YourApplicationClass with the actual class containing your Spring Boot application configuration
+class InscriptionServiceTest {
 
- class InscriptionServiceTest {
-
+    @Autowired
+    InscriptionService inscriptionService;
 
     @Autowired
     InscriptionRepository inscriptionRepository;
 
     @Autowired
-    InscriptionService inscriptionService;
-    @Autowired
     SkieurRepository skieurRepository;
+
     @Autowired
     CoursRepository coursRepository;
-
-
     @Autowired
     AbonnementRepository abonnementRepository;
 
-   Skieur skieur = Skieur.builder()
-           .numSkieur(25365478L)
-           .nomS("kabbous")
-           .prenomS("tessnime")
-           .dateNaissance(LocalDate.of(1999, 8, 25))
-           .ville("tunis")
-           .build();
-   Cours cours = Cours.builder()
-           .numCours(23L)
-           .typeCours(TypeCours.COLLECTIF_ADULTE)
-           .support(Support.SNOWBOARD)
-           .niveau(2)
-           .creneau(4)
-           .build();
-   Abonnement abonnement=Abonnement.builder()
-           .typeAbon(TypeAbonnement.ANNUEL)
-           .prixAbon(3.5f)
-           .numAbon(3L)
-           .build();
-   Inscription inscription=Inscription.builder()
-           .numInscription(1L)
-           .numSemaine(2)
-           .build();
+    Skieur skieur = Skieur.builder()
+            .numSkieur(25365478L)
+            .nomS("kabbous")
+            .prenomS("tessnime")
+            .dateNaissance(LocalDate.of(1999, 8, 25))
+            .ville("tunis")
+            .build();
+    Cours cours = Cours.builder()
+            .numCours(23L)
+            .typeCours(TypeCours.COLLECTIF_ADULTE)
+            .support(Support.SNOWBOARD)
+            .niveau(2)
+            .creneau(4)
+            .build();
+    Abonnement abonnement=Abonnement.builder()
+            .typeAbon(TypeAbonnement.ANNUEL)
+            .prixAbon(3.5f)
+            .numAbon(3L)
+            .build();
+    Inscription inscription=Inscription.builder()
+            .numInscription(1L)
+            .numSemaine(2)
+            .build();
 
     @BeforeEach
     void setUp() {
@@ -77,72 +75,50 @@ import static org.junit.jupiter.api.Assertions.*;
 
     }
 
-    @AfterEach
-    void tearDown(){
-        skieurRepository.deleteAll();
-        abonnementRepository.deleteAll();
-        inscriptionRepository.deleteAll();
-        coursRepository.deleteAll();
-    }
 
-
-
+    @Test
     @Order(0)
-    @Test
-     void testGetSubscriptionByType() {
-        inscription=inscriptionRepository.save(inscription);
-        TypeAbonnement typeAbonnement = TypeAbonnement.ANNUEL;
-
-       Set<Inscription> inscriptionss = inscriptionRepository.findByTypeAbonnement(typeAbonnement);
-
-        assertNotNull(inscriptionss);
-       assertEquals(1, inscriptionss.size());
-       log.info("get inscription==> " + inscriptionss.size());
-    }
-
-    @Order(1)
-    @Test
-     void testAssignInscriptionToCours() {
-
+    void getSubscriptionByType() {
         Inscription inscription = new Inscription();
-        inscription.setNumInscription(1L);
+        inscription.setSkieur(skieur);
+        inscription.setCours(cours);
         inscriptionRepository.save(inscription);
 
-
-       Cours cours = new Cours();
-       cours.setNumCours(2L);
-        coursRepository.save(cours);
-
-
-        Inscription existingInscription = inscriptionRepository.findByNumInscription(1L);
-
-
-        Cours existingCours = coursRepository.findByNumCours(2L);
-
-        log.info("Existing Inscription: " + existingInscription);
-        log.info("Existing Cours: " + existingCours);
-
-
-        assertNotNull(existingInscription, "L'inscription n'existe pas.");
-        assertNotNull(existingCours, "Le cours n'existe pas.");
-
-
-        assertNull(existingInscription.getCours(), "L'inscription a déjà un cours attribué.");
-
-
-        existingInscription.setCours(existingCours);
-        inscriptionRepository.save(existingInscription);
-
-
-        Inscription updatedInscription = inscriptionRepository.findByNumInscription(1L);
-        assertNotNull(updatedInscription.getCours(), "L'attribution du cours a échoué.");
-        assertEquals(cours.getNumCours(), updatedInscription.getCours().getNumCours(), "Numéro de cours incorrect.");
-
-        log.info("Updated Inscription with Cours: " + updatedInscription);
+        Set<Inscription> subscriptions = inscriptionService.getSubscriptionByType(TypeAbonnement.ANNUEL);
+        assertFalse(subscriptions.isEmpty());
     }
 
+    @Test
+    @Order(1)
+    void assignInscriptionToCours() {
+        Inscription inscription = new Inscription();
+        inscription.setSkieur(skieur);
+        inscriptionRepository.save(inscription);
 
+        Inscription assignedInscription = inscriptionService.assignInscriptionToCours(inscription.getNumInscription(), cours.getNumCours());
+        assertNotNull(assignedInscription);
+        assertEquals(cours.getNumCours(), assignedInscription.getCours().getNumCours());
+    }
 
+    @Test
+    @Order(2)
+    void addInscriptionAndAssignToSkieurAndCourse() {
+        Inscription inscription = new Inscription();
+        inscriptionService.addInscriptionAndAssignToSkieurAndCourse(inscription, skieur.getNumSkieur(), cours.getNumCours());
 
+        Inscription savedInscription = inscriptionRepository.findByNumInscription(inscription.getNumInscription());
+        assertNotNull(savedInscription);
+        assertEquals(skieur.getNumSkieur(), savedInscription.getSkieur().getNumSkieur());
+        assertEquals(cours.getNumCours(), savedInscription.getCours().getNumCours());
+    }
 
+    @Test
+    @Order(3)
+    void numWeeksCoursOfMoniteurBySupport() {
+        inscriptionService.addInscriptionAndAssignToSkieurAndCourse(new Inscription(), skieur.getNumSkieur(), cours.getNumCours());
+        List<Integer> weeks = inscriptionService.numWeeksCoursOfMoniteurBySupport(skieur.getNumSkieur(), Support.SKI);
+        System.out.println("Weeks: " + weeks);
+        assertNotNull(weeks);
+
+    }
 }
