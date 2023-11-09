@@ -19,7 +19,7 @@ public class Piste implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idPiste")
-    private Integer idPiste; // Clé primaire
+    private Long idPiste; // Clé primaire
     private Long numPiste;
     private String nomPiste;
     @Enumerated(EnumType.STRING)

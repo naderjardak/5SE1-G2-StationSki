@@ -21,7 +21,7 @@ public class Skieur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idSkieur")
-    private Integer idSkieur; // Clé primaire
+    private Long idSkieur; // Clé primaire
     private Long numSkieur;
     private String nomS;
     private String prenomS;

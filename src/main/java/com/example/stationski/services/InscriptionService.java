@@ -74,9 +74,8 @@ public class InscriptionService implements IInscriptionService{
 
     @Override
     public List<Integer> numWeeksCoursOfMoniteurBySupport(Long numInstructor, Support support) {
-        List<Integer> weeks = inscriptionRepository.numWeeksCoursOfMoniteurBySupport(numInstructor, support);
+        return inscriptionRepository.numWeeksCoursOfMoniteurBySupport(numInstructor, support);
 
-        return weeks;
     }
 
 
