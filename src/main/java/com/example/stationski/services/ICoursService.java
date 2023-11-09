@@ -3,6 +3,7 @@ package com.example.stationski.services;
 import com.example.stationski.entities.Cours;
 import com.example.stationski.entities.TypeCours;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ICoursService {
@@ -13,4 +14,5 @@ public interface ICoursService {
     Set<Cours> getCoursByType(TypeCours type);
 
 
+    List<Cours> getCours();
 }
