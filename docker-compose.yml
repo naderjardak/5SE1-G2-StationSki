@@ -19,7 +19,7 @@ services:
     ports:
       - "8089:8089"
     depends_on:
-      - db
+      - mysqldb
     volumes:
       - .m2:/root/.m2
 
