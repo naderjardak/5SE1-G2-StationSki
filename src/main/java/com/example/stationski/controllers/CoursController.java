@@ -12,25 +12,27 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("cours")
+@RequestMapping("cours/api")
 public class CoursController {
 
     ICoursService iCoursService;
-    @PostMapping(value="addCours")
-    public Cours addCours(@RequestParam Long numCours, @RequestParam TypeCours typeCours, @RequestParam Support support , @RequestParam Integer creneau) {
+    @PostMapping(value="/addCours")
+    public Cours addCours(@RequestParam Long numCours, @RequestParam TypeCours typeCours, @RequestParam Support support , @RequestParam Integer creneau, @RequestParam Integer niveau,@RequestParam Integer prix) {
         Cours cours = new Cours();
 
         cours.setNumCours(numCours);
         cours.setTypeCours(typeCours);
         cours.setSupport(support);
         cours.setCreneau(creneau);
+        cours.setNiveau(niveau);
+        cours.setPrix(prix);
         return iCoursService.addCours(cours);
     }
-    @GetMapping("getCours")
+    @GetMapping("getAllCours")
     public List<Cours> getCours() {return iCoursService.getCours();}
     @GetMapping("getCoursById/{id}")
     public ResponseEntity<Cours> getCoursById(@PathVariable("id") int idCours){return ResponseEntity.ok(iCoursService.getCoursById(idCours));}
-    @GetMapping("/retrieve-all-coursBytype/{typeCours}")
+    @GetMapping("/getcoursBytype/{typeCours}")
     public Set<Cours> getCoursByType(@PathVariable("typeCours") TypeCours typeCours) {return iCoursService.getCoursByType(typeCours);}
 
 }
