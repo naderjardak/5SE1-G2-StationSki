@@ -1,13 +1,74 @@
+#version: "3.8"
+#services:
+#  mysqldb:
+#    image: mysql:5.7
+#    restart: unless-stopped
+#
+#    ports:
+#      - "3307:3306"
+#    volumes:
+#      - db:/var/lib/mysql
+#
+#  station-ski-angular:
+#    image: ibrahimbenkhalifa/stationskia
+#    restart: on-failure
+#    ports:
+#      - "4200:4200"
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      -
+#  gestion-station-ski:
+#    depends_on:
+#      - mysqldb
+#    image: ibrahimbenkhalifa/stationski
+#    restart: on-failure
+#    environment:
+#      MYSQL_ROOT_USERNAME: "root"
+#
+#      MYSQL_ROOT_PASSWORD: "123456"
+#    ports:
+#      - "8089:8089"
+#    stdin_open: true
+#    tty: true
+#
+#    volumes:
+#      - /path/to/mysql/data:/var/lib/mysql
+#      - /path/to/mysql/conf:/etc/mysql/conf.d
+#
+#  phpmyadmin :
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - "8084:80"
+#    container_name: phpmyadmin_comp
+#    depends_on:
+#      - mysqldb
+#    environment:
+#      PMA_HOST: mysqldb
+#
+#
+#volumes:
+#  db:
+#  .m2:
 version: "3.8"
 services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
-
     ports:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
+
+  station-ski-angular:
+    image: ibrahimbenkhalifa/stationskia
+    restart: on-failure
+    ports:
+      - "4200:4200"
+    stdin_open: true
+    tty: true
+    volumes:
+      - /path/to/stationskia:/app
 
   gestion-station-ski:
     depends_on:
@@ -16,24 +77,16 @@ services:
     restart: on-failure
     environment:
       MYSQL_ROOT_USERNAME: "root"
-
       MYSQL_ROOT_PASSWORD: "123456"
     ports:
       - "8089:8089"
     stdin_open: true
     tty: true
-
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
-  station-ski-angular:
-    image: ibrahimbenkhalifa/stationskia
-    restart: on-failure
-    ports:
-      - "4200:4200"
-    stdin_open: true
-    tty: true
-  phpmyadmin :
+
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
       - "8084:80"
@@ -43,7 +96,6 @@ services:
     environment:
       PMA_HOST: mysqldb
 
-
 volumes:
   db:
-  .m2:
+  stationskia:
