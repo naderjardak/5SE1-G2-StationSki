@@ -14,6 +14,7 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/abonnement")
+@CrossOrigin(origins = "*")
 public class AbonnementController {
     IAbonnementService abonnementService;
     // http://localhost:8089/stationSki/abonnement/retrieve-all-abonnementBytype/MENSUEL
@@ -33,5 +34,8 @@ public class AbonnementController {
     public Abonnement addAboonement(@RequestBody Abonnement abonnement) {
         return abonnementService.addAboonement(abonnement);
     }
-
-}
+    @GetMapping("all")
+    public List<Abonnement> getAllAbonnement() {
+        return abonnementService.getAllAbonnement();
+    }
+    }
