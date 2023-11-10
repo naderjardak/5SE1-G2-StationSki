@@ -26,6 +26,16 @@ services:
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
+  station-ski-angular:
+    depends_on:
+      - mysqldb
+  angular-app:
+      image: ibrahimbenkhalifa/stationskia
+      restart: on-failure
+      ports:
+        - "4200:4200"
+      stdin_open: true
+      tty: true
   phpmyadmin :
     image: phpmyadmin/phpmyadmin
     ports:
