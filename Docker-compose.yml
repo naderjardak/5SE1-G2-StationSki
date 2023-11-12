@@ -83,29 +83,26 @@
 version: "3.8"
 
 services:
-  mysqldb:
-    container_name: mysqldb
-    image: mysql
-    environment:
-      MYSQL_ROOT_USERNAME: root
-      MYSQL_ROOT_PASSWORD: 123456
-    volumes:
+    mysqldb:
+      image: mysql:5.7
+      restart: unless-stopped
+      ports:
+        - "3307:3306"
+      volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
-    restart: always
-  app:
-    image: ibrahimbenkhalifa/stationski
-    build:
+    app:
+     image: ibrahimbenkhalifa/stationski
+     build:
       context: ./
       dockerfile: Dockerfile
-    ports:
+     ports:
       - "8089:8089"
-    depends_on:
+     depends_on:
       - mysqldb
-    volumes:
+     volumes:
       - .m2:/root/.m2
 
-    restart: on-failure
 volumes:
   db:
   .m2:
