@@ -1,35 +1,40 @@
-version: "3.8"
+version: '3'
 
 services:
-  mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    ports:
-      - "3307:3306"
-    volumes:
-      - db:/var/lib/mysql
-
-  gestion-station-ski:
-    depends_on:
-      - mysqldb
+  app:
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
-    environment:
-      MYSQL_ROOT_USERNAME: "root"
-      MYSQL_ROOT_PASSWORD: "123456"
     ports:
-      - "8089:8089"
-    stdin_open: true
-    tty: true
+      - 8089:8089
+    depends_on:
+      - db
+    volumes:
+      - .m2:/root/.m2
+
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    container_name: mysql_comp
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8084:80"
+    container_name: phpmyadmin_comp
+    depends_on:
+      - db
+
 volumes:
   db:
-  /path/to/mysql/data:
-  /path/to/mysql/conf:
-
+  .m2:
 
 ##======================================================================
 ##version: "3.8"
