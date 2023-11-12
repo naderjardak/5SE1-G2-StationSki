@@ -22,7 +22,7 @@ services:
     ports:
       - "8089:8089"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/StationDeSki
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/StationSki
     depends_on:
       - mysql
     networks:
