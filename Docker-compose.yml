@@ -1,37 +1,27 @@
 version: '3.8'
+
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_DATABASE: StationDeSki
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-    networks:
-      - app-network
-
-  stationski:
+  app:
+    image: ibrahimbenkhalifa/stationski
     build:
-     context: ./DockerFile
-
-    container_name: ibrahimbenkhalifa/stationski
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - "8089:8089"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/StationDeSki
+      - 8089:8089
     depends_on:
-      - mysql
-    networks:
-      - app-network
+      - db
+    volumes:
+      - .m2:/root/.m2
 
-volumes:
-  mysql_data:
-  mysql_config:
-networks:
-  app-network:
-    driver: bridge
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    container_name: mysql_comp
+    volumes:
+      - /path/to/mysql/data:/var/lib/mysql
+      - /path/to/mysql/conf:/etc/mysql/conf.d
