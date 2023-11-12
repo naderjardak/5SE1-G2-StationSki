@@ -17,7 +17,8 @@ services:
 
   stationski:
     build:
-      context: .
+     context: ./var/lib/jenkins/workspace/Ibrahim-Benkhalifa-StationSki-GestionCours/DockerFile
+
     container_name: ibrahimbenkhalifa/stationski
     ports:
       - "8089:8089"
