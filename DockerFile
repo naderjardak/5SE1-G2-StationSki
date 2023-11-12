@@ -4,6 +4,6 @@
 #ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
 FROM openjdk:11-jre-slim
 VOLUME /tmp
-ARG JAR_FILE=target/stationSki-1.2.5.jar.jar
+ARG JAR_FILE=target/stationSki-1.2.5.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
