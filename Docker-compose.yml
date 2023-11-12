@@ -16,7 +16,7 @@ services:
     image: ibrahimbenkhalifa/stationski
 
     environment:
-      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
+      MYSQL_ROOT_PASSWORD: "123456"
     ports:
       - "8089:8089"
     stdin_open: true
