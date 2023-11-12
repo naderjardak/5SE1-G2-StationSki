@@ -1,14 +1,13 @@
 version: "3.8"
+
 services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
-
     ports:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
-
 
   gestion-station-ski:
     depends_on:
@@ -17,31 +16,21 @@ services:
     restart: on-failure
     environment:
       MYSQL_ROOT_USERNAME: "root"
-
       MYSQL_ROOT_PASSWORD: "123456"
     ports:
       - "8089:8089"
     stdin_open: true
     tty: true
-
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
 
-  phpmyadmin :
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8084:80"
-    container_name: phpmyadmin_comp
-    depends_on:
-      - mysqldb
-    environment:
-      PMA_HOST: mysqldb
-
-
 volumes:
   db:
-  .m2:
+  /path/to/mysql/data:
+  /path/to/mysql/conf:
+
+
 ##======================================================================
 ##version: "3.8"
 ##services:
@@ -118,6 +107,33 @@ volumes:
 #    restart: on-failure
 #    environment:
 #      MYSQL_ROOT_PASSWORD: "123456"
+#    ports:
+#      - "8089:8089"
+#    stdin_open: true
+#    tty: true
+#
+#volumes:
+#  db:
+#==========================================================================
+#version: "3.8"
+#services:
+#  mysqldb:
+#    image: mysql:5.7
+#    restart: unless-stopped
+#    environment:
+#      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+#    ports:
+#      - "3307:3306"
+#    volumes:
+#      - db:/var/lib/mysql
+#
+#  gestion-station-ski:
+#    depends_on:
+#      - mysqldb
+#    image: ibrahimbenkhalifa/stationski
+#    restart: on-failure
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
 #    ports:
 #      - "8089:8089"
 #    stdin_open: true
