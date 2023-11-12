@@ -14,14 +14,13 @@ services:
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
-    restart: on-failure
+
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
     ports:
       - "8089:8089"
     stdin_open: true
     tty: true
 
 volumes:
-  .m2:
   db:
