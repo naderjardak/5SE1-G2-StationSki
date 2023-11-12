@@ -1,5 +1,11 @@
-FROM openjdk:11-jdk-slim
-EXPOSE 8089
-ADD target/stationSki-1.2.5.jar docker-spring-boot.jar
-ENTRYPOINT ["java","-jar","/docker-spring-boot.jar"]
+FROM maven:3.8.4-openjdk-11
 
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN mvn dependency:resolve
+
+COPY src ./src
+
+CMD ["mvn", "spring-boot:run"]
