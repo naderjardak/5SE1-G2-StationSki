@@ -23,4 +23,5 @@ services:
     tty: true
 
 volumes:
+  .m2:
   db:
