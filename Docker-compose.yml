@@ -1,26 +1,36 @@
-version: "3.8"
+version: '3.8'
 services:
-  mysqldb:
+  mysql:
     image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    container_name: mysql
     ports:
       - "3307:3306"
-    volumes:
-      - db:/var/lib/mysql
-
-  gestion-station-ski:
-    depends_on:
-      - mysqldb
-    image: ibrahimbenkhalifa/stationski
-
     environment:
-      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: StationDeSki
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+    networks:
+      - app-network
+
+  stationski:
+    build:
+      context: .
+    container_name: ibrahimbenkhalifa/stationski
     ports:
       - "8089:8089"
-    stdin_open: true
-    tty: true
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/StationDeSki
+    depends_on:
+      - mysql
+    networks:
+      - app-network
 
 volumes:
-  db:
+  mysql_data:
+  mysql_config:
+networks:
+  app-network:
+    driver: bridge
