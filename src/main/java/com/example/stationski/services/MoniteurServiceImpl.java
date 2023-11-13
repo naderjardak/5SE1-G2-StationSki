@@ -3,20 +3,20 @@ package com.example.stationski.services;
 import com.example.stationski.entities.Moniteur;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
 @Slf4j
-
 public class MoniteurServiceImpl implements IMoniteurService{
+
     MoniteurRepository moniteurRepository;
     CoursRepository coursRepository;
     @Override
@@ -36,7 +36,8 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
-        return moniteurRepository.findById(idMoniteur).get();
+        Optional<Moniteur> moniteurOptional = moniteurRepository.findById(idMoniteur);
+        return moniteurOptional.orElseGet(Moniteur::new);
     }
 
     @Override
@@ -46,9 +47,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        Moniteur m1 = Moniteur.builder().build();
-        Moniteur m = moniteurRepository.save(moniteur);
-        return m;
+        return moniteurRepository.save(moniteur);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
         AtomicReference<Moniteur> bestMoniteur = new AtomicReference<>();
         AtomicReference<Integer> nbCoursMax= new AtomicReference<>(0);
 
-        moniteurRepository.findAll().stream().forEach(
+        moniteurRepository.findAll().forEach(
 
                 moniteur -> {
                     if(moniteur.getCoursSet().size()> nbCoursMax.get())
@@ -68,11 +67,8 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
                 }
         );
-        log.info("bestMoniteur: "+bestMoniteur.get().getIdMoniteur()+" " +bestMoniteur.get().getNomM()+" "+ bestMoniteur.get().getPrenomM());
-        log.info("nbCoursMax: "+nbCoursMax.get());
         bestMoniteur.get().setPrime(10000);
         moniteurRepository.save(bestMoniteur.get());
-        log.debug(bestMoniteur.get()+"");
         return bestMoniteur.get();
     }
 }

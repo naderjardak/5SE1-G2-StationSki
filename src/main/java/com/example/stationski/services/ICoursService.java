@@ -1,7 +1,16 @@
 package com.example.stationski.services;
 
-public interface ICoursService {
+import com.example.stationski.entities.Cours;
+import com.example.stationski.entities.TypeCours;
 
-//    void listeCoursSnowBoard();
+import java.util.Set;
+
+public interface ICoursService {
+   Cours addCours(Cours cours);
+
+   Cours getCoursById(int id);
+
+   Set<Cours> getCoursByType(TypeCours type);
+
 
 }
