@@ -35,9 +35,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
-        if(idMoniteur!=null)
         return moniteurRepository.findById(idMoniteur).get();
-        return new Moniteur();
     }
 
     @Override
@@ -47,9 +45,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        Moniteur m1 = Moniteur.builder().build();
-        Moniteur m = moniteurRepository.save(moniteur);
-        return m;
+        return moniteurRepository.save(moniteur);
     }
 
     @Override
@@ -57,7 +53,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
         AtomicReference<Moniteur> bestMoniteur = new AtomicReference<>();
         AtomicReference<Integer> nbCoursMax= new AtomicReference<>(0);
 
-        moniteurRepository.findAll().stream().forEach(
+        moniteurRepository.findAll().forEach(
 
                 moniteur -> {
                     if(moniteur.getCoursSet().size()> nbCoursMax.get())
@@ -73,7 +69,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
         log.info("nbCoursMax: "+nbCoursMax.get());
         bestMoniteur.get().setPrime(10000);
         moniteurRepository.save(bestMoniteur.get());
-        log.debug(bestMoniteur.get()+"");
+        log.debug(String.valueOf(bestMoniteur.get()));
         return bestMoniteur.get();
     }
 }
