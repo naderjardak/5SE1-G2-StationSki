@@ -30,8 +30,7 @@ services:
       MYSQL_ROOT_PASSWORD: "123456"
     depends_on:
       - mysqldb
-    networks:
-      - app-network
+
 
 volumes:
   mysql_data:
