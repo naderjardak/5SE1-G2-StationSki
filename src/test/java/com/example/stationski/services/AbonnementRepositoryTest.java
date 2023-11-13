@@ -39,8 +39,7 @@ public class AbonnementRepositoryTest {
     @Order(2)
     public void deleteAbonnements() {
         ar.delete(a);
-        Optional<Abonnement> deletedAbonnement = ar.findById(a.getIdAbonnement());
-        Assertions.assertNull(deletedAbonnement, "L'abonnement ne devrait pas être trouvé après la suppression");
+        Assertions.assertNull(ar.findById(a.getIdAbonnement()));
     }
 
 }
