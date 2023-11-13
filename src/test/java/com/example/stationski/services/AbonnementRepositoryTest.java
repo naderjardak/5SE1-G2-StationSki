@@ -39,7 +39,8 @@ public class AbonnementRepositoryTest {
     @Order(2)
     public void deleteAbonnements() {
         ar.delete(a);
-        Assertions.assertNull(ar.findById(a.getIdAbonnement()));
+        List<Abonnement> abonnementList=ar.findAll();
+        Assertions.assertEquals(abonnementList.size(),0);
     }
 
 }
