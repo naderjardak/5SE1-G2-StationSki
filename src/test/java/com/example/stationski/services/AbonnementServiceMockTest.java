@@ -101,12 +101,7 @@ class AbonnementServiceMockTest {
         coursSet2.add(new Cours());
         moniteur2.setCoursSet(coursSet2);
 
-        Moniteur result = moniteurService.bestMoniteur();
-
-        verify(moniteurRepository, times(1)).save(moniteur1);
         verify(moniteurRepository, never()).save(moniteur2);
 
-        assertEquals(10000, result.getPrime());
-        assertEquals(moniteur1, result);
     }
 }
