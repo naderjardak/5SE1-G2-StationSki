@@ -24,13 +24,13 @@ public class SkieurController {
     }
 
     // http://localhost:8089/stationSki/skieur/addSkieurAndAssignToCourse/120
-    @PostMapping("/addSkieurAndAssignToCourse/{numCours}")
+  /*  @PostMapping("/addSkieurAndAssignToCourse/{numCours}")
     public Skieur addSkieurAndAssignToCourse(@RequestBody Skieur skieur,
                                       @PathVariable("numCours")Long numCours) {
         Skieur s = skieurService.addSkieurAndAssignToCourse(skieur,numCours);
         return s;
     }
-
+*/
 
     // http://localhost:8089/stationSki/skieur/retrieveSkieursByTypeAbonnement/MENSUEL
     @GetMapping("/retrieveSkieursByTypeAbonnement/{typeAbonnement}")
@@ -42,7 +42,7 @@ public class SkieurController {
     // http://localhost:8089/stationSki/skieur/nombreSkieursParCouleurPiste
     @GetMapping("/nombreSkieursParCouleurPiste")
     public  HashMap<Couleur,Integer> nombreSkieursParCouleurPiste() {
-        HashMap<Couleur,Integer> nombreSkieursParCouleurPiste = skieurService.nombreSkieursParCouleurPiste();
+        HashMap<Couleur,Integer> nombreSkieursParCouleurPiste = (HashMap<Couleur, Integer>) skieurService.nombreSkieursParCouleurPiste();
         return nombreSkieursParCouleurPiste;
     }
 
