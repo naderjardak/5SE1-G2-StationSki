@@ -15,21 +15,23 @@ services:
   angular-app:
     build:
       context: ./
+    image: ibrahimbenkhalifa/stationskiangular
+
     ports:
       - "4200:4200"
     depends_on:
       - spring-boot-app
 
   db:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
+   image: mysql:5.7
+   command: --default-authentication-plugin=mysql_native_password
+   environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: StationDeSki
-    ports:
+   ports:
       - "3307:3306"
-    container_name: mysql_comp
-    volumes:
+   container_name: mysql_comp
+   volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
