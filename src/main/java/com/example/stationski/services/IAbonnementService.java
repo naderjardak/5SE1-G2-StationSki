@@ -1,5 +1,6 @@
 package com.example.stationski.services;
 
+import com.example.stationski.dto.AbonnementDto;
 import com.example.stationski.entities.Abonnement;
 import com.example.stationski.entities.TypeAbonnement;
 
@@ -14,7 +15,7 @@ public interface IAbonnementService {
 
     Abonnement getAbonnementById(int id);
 
-    Abonnement addAboonement(Abonnement abonnement);
+    Abonnement addAboonement(AbonnementDto abonnementDto);
     public List<Abonnement> getAllAbonnement();
 
  //   public void retrieveAbonnements();

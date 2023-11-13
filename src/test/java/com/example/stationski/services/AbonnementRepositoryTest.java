@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 @ExtendWith(SpringExtension.class)
@@ -36,8 +37,10 @@ public class AbonnementRepositoryTest {
     }
     @Test
     @Order(2)
-    public void deleteAbonnements(){
+    public void deleteAbonnements() {
         ar.delete(a);
-        Assertions.assertNotEquals(a.getIdAbonnement(),ar.findById(a.getIdAbonnement()));
+        Optional<Abonnement> deletedAbonnement = ar.findById(a.getIdAbonnement());
+        Assertions.assertNull(deletedAbonnement, "L'abonnement ne devrait pas être trouvé après la suppression");
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.stationski.controllers;
 
+import com.example.stationski.dto.AbonnementDto;
 import com.example.stationski.entities.Abonnement;
 import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.services.IAbonnementService;
@@ -31,8 +32,8 @@ public class AbonnementController {
         return abonnementService.retrieveAbonnementByDates(startDate, endDate);
     }
     @PostMapping("add")
-    public Abonnement addAboonement(@RequestBody Abonnement abonnement) {
-        return abonnementService.addAboonement(abonnement);
+    public Abonnement addAboonement(@RequestBody AbonnementDto abonnementDto) {
+        return abonnementService.addAboonement(abonnementDto);
     }
     @GetMapping("all")
     public List<Abonnement> getAllAbonnement() {
