@@ -36,10 +36,6 @@ class MoniteurServiceImplTest {
     @Autowired
     CoursRepository coursRepository;
 
-    @BeforeEach
-    public void setUp() {
-        // Your setup logic, if any
-    }
 
     @AfterEach
     void tearDown() {

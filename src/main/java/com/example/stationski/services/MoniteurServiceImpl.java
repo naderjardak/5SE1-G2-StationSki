@@ -67,11 +67,8 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
                 }
         );
-        log.info("bestMoniteur: "+bestMoniteur.get().getIdMoniteur()+" " +bestMoniteur.get().getNomM()+" "+ bestMoniteur.get().getPrenomM());
-        log.info("nbCoursMax: "+nbCoursMax.get());
         bestMoniteur.get().setPrime(10000);
         moniteurRepository.save(bestMoniteur.get());
-        log.debug(String.valueOf(bestMoniteur.get()));
         return bestMoniteur.get();
     }
 }
