@@ -3,20 +3,19 @@ package com.example.stationski.services;
 import com.example.stationski.entities.Moniteur;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
 @Slf4j
-
 public class MoniteurServiceImpl implements IMoniteurService{
+
     MoniteurRepository moniteurRepository;
     CoursRepository coursRepository;
     @Override
@@ -36,7 +35,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
-        return moniteurRepository.findById(idMoniteur).orElse(new Moniteur());
+        return moniteurRepository.findById(idMoniteur).get();
     }
 
     @Override
@@ -46,7 +45,9 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Transactional
     public Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur) {
-        return moniteurRepository.save(moniteur);
+        Moniteur m1 = Moniteur.builder().build();
+        Moniteur m = moniteurRepository.save(moniteur);
+        return m;
     }
 
     @Override
