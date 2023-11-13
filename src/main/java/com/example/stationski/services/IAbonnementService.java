@@ -14,7 +14,4 @@ public interface IAbonnementService {
 
     Abonnement getAbonnementById(int id);
 
-    Abonnement addAboonement(Abonnement abonnement);
-
-    //   public void retrieveAbonnements();
 }

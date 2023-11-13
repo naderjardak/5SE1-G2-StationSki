@@ -10,9 +10,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Cours implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,4 @@ public class Cours implements Serializable {
     @OneToMany(mappedBy ="cours" )
     @JsonIgnore
     private Set<Inscription> inscriptions;
-
-
-
 }

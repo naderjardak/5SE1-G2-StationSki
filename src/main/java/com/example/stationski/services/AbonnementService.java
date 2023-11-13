@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -29,13 +30,15 @@ public class AbonnementService implements IAbonnementService{
 
     @Override
     public Abonnement getAbonnementById(int id) {
-        return abonnementRepository.findById(id).get();
-    }
 
-    @Override
-    public Abonnement addAboonement(Abonnement abonnement) {
-        return abonnementRepository.save(abonnement);
-    }
+        Optional<Abonnement> abonnement = abonnementRepository.findById(id);
+
+        if (abonnement.isPresent()) {
+            return abonnement.get();
+        } else {
+
+            return null;
+        }    }
 
 
 }
