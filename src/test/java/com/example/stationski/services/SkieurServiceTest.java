@@ -120,4 +120,5 @@ class SkieurServiceTest {
     void nombreSkieursParCouleurPiste() {
         assertEquals(4, skieurService.nombreSkieursParCouleurPiste().size());
     }
+
 }
