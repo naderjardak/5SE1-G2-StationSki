@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -39,14 +40,16 @@ class SkieurServiceMockTest {
 
     @Test
     void testAssignSkieurToPiste_Success() {
-        skieur.setIdSkieur(1L);
+        skieur.setPistes(null); 
         piste.setIdPiste(1L);
 
         Mockito.when(skieurRepository.findByNumSkieur(1L)).thenReturn(skieur);
         Mockito.when(pisteRepository.findByNumPiste(1L)).thenReturn(piste);
 
         Skieur resultSki = skieurService.assignSkieurToPiste(1L, 1L);
-        assertNotNull(resultSki.getIdSkieur());
+
+        assertNotNull(resultSki);
+        assertTrue(resultSki.getPistes().contains(piste));
     }
 
     @Test
@@ -75,8 +78,8 @@ class SkieurServiceMockTest {
         List<Skieur> result = skieurService.retrieveSkieursByTypeAbonnement(typeAbonnement);
 
         Assertions.assertEquals(2, result.size());
-        Assertions.assertTrue(result.contains(skieur1));
-        Assertions.assertTrue(result.contains(skieur2));
+        assertTrue(result.contains(skieur1));
+        assertTrue(result.contains(skieur2));
     }
 
     @Test
