@@ -20,10 +20,12 @@ services:
     depends_on:
       - gestion-station-ski
   gestion-station-ski:
+    build:
+      context: ./
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
-    restart: on-failure
+
     environment:
       MYSQL_ROOT_PASSWORD: "123456"  # Set to an empty string
     ports:
