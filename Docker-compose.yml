@@ -10,15 +10,6 @@ services:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
-
-  angular-app:
-    build:
-      context: ./
-    image: ibrahimbenkhalifa/stationskiangular
-    ports:
-      - "4200:4200"
-    depends_on:
-      - gestion-station-ski
   gestion-station-ski:
     build:
       context: ./
@@ -33,6 +24,16 @@ services:
     stdin_open: true
     tty: true
 
+
+
+  angular-app:
+   build:
+      context: ./
+   image: ibrahimbenkhalifa/stationskiangular
+   ports:
+      - "4200:4200"
+   depends_on:
+      - gestion-station-ski
+
 volumes:
   db:
-
