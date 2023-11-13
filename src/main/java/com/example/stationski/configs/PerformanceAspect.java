@@ -5,8 +5,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import static java.lang.Thread.sleep;
-
 
 @Aspect
 @Slf4j
