@@ -24,11 +24,6 @@ public class LoggingAspect {
         log.info("Out of method without errors : " + name );
     }
 
-    @AfterThrowing("execution(* com.example.stationski.services.*.*(..))")
-    public void logMethodExit2(JoinPoint joinPoint) {
-        String name = joinPoint.getSignature().getName();
-        log.error("Out of method with erros : " + name );
-    }
 
     @After("execution(* com.example.stationski.services.*.*(..))")
     public void logMethodExit(JoinPoint joinPoint) {
