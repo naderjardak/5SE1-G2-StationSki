@@ -18,5 +18,4 @@ public interface IAbonnementService {
     Abonnement addAboonement(AbonnementDto abonnementDto);
     public List<Abonnement> getAllAbonnement();
 
- //   public void retrieveAbonnements();
 }
