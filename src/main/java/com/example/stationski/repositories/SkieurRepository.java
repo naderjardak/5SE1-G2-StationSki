@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface SkieurRepository  extends JpaRepository<Skieur,Integer> {
 
-Skieur findByNumSkieur(Long numSkieur);
-List<Skieur> findByAbonnementTypeAbon(TypeAbonnement TypeAbonnement);
+    Skieur findByNumSkieur(Long numSkieur);
+    List<Skieur> findByAbonnementTypeAbon(TypeAbonnement typeAbonnement);
 
-Skieur findByAbonnement(Abonnement abonnement);
+    Skieur findByAbonnement(Abonnement abonnement);
 
-@Query("select s from Skieur s JOIN s.pistes p where  p.couleur=:couleur ")
-List<Skieur> skieursByCouleurPiste(@Param("couleur") Couleur couleur);
+    @Query("select s from Skieur s JOIN s.pistes p where  p.couleur=:couleur ")
+    List<Skieur> skieursByCouleurPiste(@Param("couleur") Couleur couleur);
 }
