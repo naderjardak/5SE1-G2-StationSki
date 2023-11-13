@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  app:
+  spring-boot-app:
     image: ibrahimbenkhalifa/stationski
     build:
       context: ./
@@ -12,6 +12,13 @@ services:
       - db
     volumes:
       - .m2:/root/.m2
+  angular-app:
+    build:
+      context: ./
+    ports:
+      - "4200:4200"
+    depends_on:
+      - spring-boot-app
 
   db:
     image: mysql:5.7
