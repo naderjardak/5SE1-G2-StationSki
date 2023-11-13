@@ -8,9 +8,9 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Builder
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cours implements Serializable {

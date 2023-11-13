@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table( name = "Inscription")
 

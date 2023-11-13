@@ -5,14 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-
-
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table( name = "Abonnement")
 public class Abonnement implements Serializable {
 
