@@ -14,7 +14,6 @@ import java.util.Set;
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    @Builder
     @Table( name = "Moniteur")
     public class Moniteur implements Serializable {
         @Id
