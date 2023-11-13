@@ -56,15 +56,12 @@ public class MoniteurServiceImpl implements IMoniteurService{
         AtomicReference<Integer> nbCoursMax= new AtomicReference<>(0);
 
         moniteurRepository.findAll().forEach(
-
                 moniteur -> {
                     if(moniteur.getCoursSet().size()> nbCoursMax.get())
                     {
                         nbCoursMax.set(moniteur.getCoursSet().size());
                         bestMoniteur.set(moniteur);
                     }
-
-
                 }
         );
         bestMoniteur.get().setPrime(10000);

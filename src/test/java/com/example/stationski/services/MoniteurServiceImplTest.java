@@ -42,8 +42,6 @@ class MoniteurServiceImplTest {
         moniteurRepository.deleteAll();
     }
 
-    // Traditional Tests
-
     @Test
     @Order(0)
     void addMoniteur() {
