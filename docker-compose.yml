@@ -16,6 +16,8 @@ services:
     image: mohsenfennnira/stationski:latest
     depends_on:
       - app
+    ports:
+      - "4199:80"
     restart: always
   app:
     image: mohsenfennnira/stationski
