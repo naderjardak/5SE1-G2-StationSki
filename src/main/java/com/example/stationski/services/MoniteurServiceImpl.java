@@ -35,7 +35,9 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public Moniteur retrieveMoniteur(Integer idMoniteur) {
+        if(idMoniteur!=null)
         return moniteurRepository.findById(idMoniteur).get();
+        return new Moniteur();
     }
 
     @Override
