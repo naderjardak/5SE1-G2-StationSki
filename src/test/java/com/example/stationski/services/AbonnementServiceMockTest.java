@@ -1,8 +1,11 @@
 package com.example.stationski.services;
 
 import com.example.stationski.entities.Abonnement;
+import com.example.stationski.entities.Cours;
+import com.example.stationski.entities.Moniteur;
 import com.example.stationski.entities.TypeAbonnement;
 import com.example.stationski.repositories.AbonnementRepository;
+import com.example.stationski.repositories.MoniteurRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -29,10 +29,14 @@ class AbonnementServiceMockTest {
     @Mock
     private AbonnementRepository abonnementRepository;
 
+    @Mock
+    private MoniteurRepository moniteurRepository;
+
+    @InjectMocks
+    private MoniteurServiceImpl moniteurService;
+
     @InjectMocks
     private AbonnementService abonnementService;
-
-
 
     @Test
     void testGetAbonnementByType() {
@@ -80,5 +84,29 @@ class AbonnementServiceMockTest {
 
         assertNull(result);
         verify(abonnementRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void testBestMoniteur() {
+        Moniteur moniteur1 = new Moniteur();
+        moniteur1.setIdMoniteur(1);
+        Set<Cours> coursSet1 = new HashSet<>();
+        coursSet1.add(new Cours());
+        coursSet1.add(new Cours());
+        moniteur1.setCoursSet(coursSet1);
+
+        Moniteur moniteur2 = new Moniteur();
+        moniteur2.setIdMoniteur(2);
+        Set<Cours> coursSet2 = new HashSet<>();
+        coursSet2.add(new Cours());
+        moniteur2.setCoursSet(coursSet2);
+
+        Moniteur result = moniteurService.bestMoniteur();
+
+        verify(moniteurRepository, times(1)).save(moniteur1);
+        verify(moniteurRepository, never()).save(moniteur2);
+
+        assertEquals(10000, result.getPrime());
+        assertEquals(moniteur1, result);
     }
 }
