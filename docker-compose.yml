@@ -13,7 +13,7 @@ services:
     restart: always
   front:
     container_name: frontstation
-    image: mohsenfennnira/stationski:latest
+    image: mohsenfennnira/stationskyfinal1:latest
     depends_on:
       - app
     ports:
