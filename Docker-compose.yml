@@ -18,21 +18,24 @@ services:
     ports:
       - "4200:4200"
     depends_on:
-      - gestion-station-ski
-
-  gestion-station-ski:
+      - stationski
+  stationski:
     build:
-      context: ./
-    depends_on:
-      - mysqldb
+      context: .
     image: ibrahimbenkhalifa/stationski
-    restart: on-failure
-    environment:
-      MYSQL_ROOT_PASSWORD: "123456"
+    container_name: ibrahimbenkhalifa/stationski
     ports:
       - "8089:8089"
-    stdin_open: true
-    tty: true
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/StationDeSki
+    depends_on:
+      - mysql
+    networks:
+      - app-network
 
 volumes:
-  db:
+  mysql_data:
+  mysql_config:
+  networks:
+  app-network:
+   driver: bridge
