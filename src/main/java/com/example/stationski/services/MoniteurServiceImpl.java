@@ -40,7 +40,7 @@ public class MoniteurServiceImpl implements IMoniteurService{
 
     @Override
     public void deleteMoniteur(Integer idMoniteur) {
-  moniteurRepository.deleteById(idMoniteur);
+        moniteurRepository.deleteById(idMoniteur);
     }
 
     @Transactional
