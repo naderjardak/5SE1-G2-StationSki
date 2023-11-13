@@ -50,25 +50,4 @@ public class MoniteurServiceImpl implements IMoniteurService{
         return moniteurRepository.save(moniteur);
     }
 
-    @Override
-    public Moniteur  bestMoniteur() {
-        AtomicReference<Moniteur> bestMoniteur = new AtomicReference<>();
-        AtomicReference<Integer> nbCoursMax= new AtomicReference<>(0);
-
-        moniteurRepository.findAll().forEach(
-
-                moniteur -> {
-                    if(moniteur.getCoursSet().size()> nbCoursMax.get())
-                    {
-                        nbCoursMax.set(moniteur.getCoursSet().size());
-                        bestMoniteur.set(moniteur);
-                    }
-
-
-                }
-        );
-        bestMoniteur.get().setPrime(10000);
-        moniteurRepository.save(bestMoniteur.get());
-        return bestMoniteur.get();
-    }
 }

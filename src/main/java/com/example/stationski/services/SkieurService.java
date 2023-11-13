@@ -31,9 +31,7 @@ public class SkieurService implements ISkieurService{
         Piste piste = pisteRepository.findByNumPiste(numPiste);
         log.info("skieur " + skieur.getNumSkieur());
         log.info("piste " + piste.getNomPiste());
-        if (skieur.getPistes() == null) {
-            skieur.setPistes(new HashSet<>());
-        }
+        skieur.setPistes(new HashSet<>());
         skieur.getPistes().add(piste);
         log.info("fin methode assignSkieurToPiste");
         return skieur;

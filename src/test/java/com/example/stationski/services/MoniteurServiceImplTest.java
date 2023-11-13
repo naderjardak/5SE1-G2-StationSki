@@ -155,25 +155,6 @@ class MoniteurServiceImplTest {
     @Mock
     private IMoniteurService moniteurServiceMock;
 
-    @Test
-    @Order(7)
-    void bestMoniteurMockito() {
-        Moniteur moniteur1 = new Moniteur();
-        moniteur1.setNomM("Gina");
-        moniteur1.setPrenomM("Genius");
-
-        Moniteur moniteur2 = new Moniteur();
-        moniteur2.setNomM("Harry");
-        moniteur2.setPrenomM("Houdini");
-
-        when(moniteurServiceMock.bestMoniteur()).thenReturn(moniteur1);
-
-        Moniteur bestMoniteur = moniteurServiceMock.bestMoniteur();
-
-        assertNotNull(bestMoniteur);
-        assertEquals("Gina", bestMoniteur.getNomM());
-        verify(moniteurServiceMock, times(1)).bestMoniteur();
-    }
 
 
 }

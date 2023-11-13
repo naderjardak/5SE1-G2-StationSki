@@ -39,15 +39,13 @@ class SkieurServiceMockTest {
     Piste piste = new Piste();
 
     @Test
-    void testAssignSkieurToPiste_Success() {
-        skieur.setPistes(null); 
+    void testAssignSkieurToPiste_Success1() {
+        skieur.setPistes(null);
         piste.setIdPiste(1L);
 
         Mockito.when(skieurRepository.findByNumSkieur(1L)).thenReturn(skieur);
         Mockito.when(pisteRepository.findByNumPiste(1L)).thenReturn(piste);
-
         Skieur resultSki = skieurService.assignSkieurToPiste(1L, 1L);
-
         assertNotNull(resultSki);
         assertTrue(resultSki.getPistes().contains(piste));
     }

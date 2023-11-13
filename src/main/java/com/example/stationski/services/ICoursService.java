@@ -6,7 +6,6 @@ import com.example.stationski.entities.TypeCours;
 import java.util.Set;
 
 public interface ICoursService {
-   Cours addCours(Cours cours);
 
    Cours getCoursById(int id);
 

@@ -15,12 +15,7 @@ import java.util.Set;
 @Slf4j
 public class CoursService implements   ICoursService{
     CoursRepository coursRepository;
-    @Override
 
-    public Cours addCours(Cours cours) {
-
-        return coursRepository.save(cours);
-    }
     @Override
     public Cours getCoursById(int id){
         return coursRepository.findById(id).orElse(null);
