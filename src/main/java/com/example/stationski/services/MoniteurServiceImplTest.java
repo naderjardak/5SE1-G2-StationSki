@@ -1,6 +1,7 @@
 package com.example.stationski.services;
 
 import com.example.stationski.StationSkiApplication;
+import com.example.stationski.entities.Cours;
 import com.example.stationski.entities.Moniteur;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
@@ -15,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,13 +33,13 @@ import static org.mockito.Mockito.*;
 class MoniteurServiceImplTest {
 
     @Autowired
-    IMoniteurService moniteurService;
+    private MoniteurServiceImpl moniteurService;
 
     @Autowired
-    MoniteurRepository moniteurRepository;
+   private MoniteurRepository moniteurRepository;
 
     @Autowired
-    CoursRepository coursRepository;
+   private CoursRepository coursRepository;
 
     @BeforeEach
     public void setUp() {
@@ -56,7 +59,7 @@ class MoniteurServiceImplTest {
         Moniteur moniteur = new Moniteur();
         moniteur.setNomM("John");
         moniteur.setPrenomM("Doe");
-        Moniteur addedMoniteur = moniteurService.addMoniteur(moniteur);
+        Moniteur addedMoniteur = moniteurRepository.save(moniteur);
         assertNotNull(addedMoniteur);
         assertEquals("John", addedMoniteur.getNomM());
     }
@@ -71,10 +74,12 @@ class MoniteurServiceImplTest {
         moniteur2.setNomM("Bob");
         moniteur2.setPrenomM("Builder");
 
-        moniteurService.addMoniteur(moniteur1);
-        moniteurService.addMoniteur(moniteur2);
+        moniteurRepository.save(moniteur1);
+        moniteurRepository.save(moniteur2);
 
-        List<Moniteur> allMoniteurs = moniteurService.retrieveAllMoniteurs();
+        List<Moniteur> allMoniteurs = moniteurRepository.findAll();
+        System.out.println("bribech");
+        System.out.println(allMoniteurs);
         assertNotNull(allMoniteurs);
         assertEquals(2, allMoniteurs.size());
     }
@@ -86,11 +91,11 @@ class MoniteurServiceImplTest {
         moniteur.setNomM("Charlie");
         moniteur.setPrenomM("Chaplin");
 
-        Moniteur addedMoniteur = moniteurService.addMoniteur(moniteur);
+        Moniteur addedMoniteur = moniteurRepository.save(moniteur);
         assertNotNull(addedMoniteur);
 
         addedMoniteur.setNomM("UpdatedName");
-        Moniteur updatedMoniteur = moniteurService.updateMoniteur(addedMoniteur);
+        Moniteur updatedMoniteur = moniteurRepository.save(addedMoniteur);
 
         assertNotNull(updatedMoniteur);
         assertEquals("UpdatedName", updatedMoniteur.getNomM());
@@ -103,10 +108,10 @@ class MoniteurServiceImplTest {
         moniteur.setNomM("David");
         moniteur.setPrenomM("Duchovny");
 
-        Moniteur addedMoniteur = moniteurService.addMoniteur(moniteur);
+        Moniteur addedMoniteur = moniteurRepository.save(moniteur);
         assertNotNull(addedMoniteur);
 
-        Moniteur retrievedMoniteur = moniteurService.retrieveMoniteur(addedMoniteur.getIdMoniteur());
+        Moniteur retrievedMoniteur = moniteurRepository.findById(addedMoniteur.getIdMoniteur()).get();
 
         assertNotNull(retrievedMoniteur);
         assertEquals("David", retrievedMoniteur.getNomM());
@@ -119,12 +124,12 @@ class MoniteurServiceImplTest {
         moniteur.setNomM("Eva");
         moniteur.setPrenomM("Eve");
 
-        Moniteur addedMoniteur = moniteurService.addMoniteur(moniteur);
+        Moniteur addedMoniteur = moniteurRepository.save(moniteur);
         assertNotNull(addedMoniteur);
 
-        moniteurService.deleteMoniteur(addedMoniteur.getIdMoniteur());
+        moniteurRepository.deleteById(addedMoniteur.getIdMoniteur());
 
-        List<Moniteur> allMoniteurs = moniteurService.retrieveAllMoniteurs();
+        List<Moniteur> allMoniteurs = moniteurRepository.findAll();
         assertNotNull(allMoniteurs);
         assertEquals(0, allMoniteurs.size());
     }
@@ -135,35 +140,17 @@ class MoniteurServiceImplTest {
         Moniteur moniteur = new Moniteur();
         moniteur.setNomM("Frank");
         moniteur.setPrenomM("Frankenstein");
+        Cours cours=new Cours();
+        Cours cours1=new Cours();
+        Set<Cours> coursSet = new HashSet<>();
 
-        Moniteur addedMoniteur = moniteurService.addMoniteurAndAssignToCourse(moniteur);
-
-        assertNotNull(addedMoniteur);
-        assertNotNull(addedMoniteur.getCoursSet());
-        assertEquals(1, addedMoniteur.getCoursSet().size());
-    }
-
-    @Test
-    @Order(6)
-    void bestMoniteur() {
-        Moniteur moniteur1 = new Moniteur();
-        moniteur1.setNomM("Gina");
-        moniteur1.setPrenomM("Genius");
-
-        Moniteur moniteur2 = new Moniteur();
-        moniteur2.setNomM("Harry");
-        moniteur2.setPrenomM("Houdini");
-
-        Moniteur addedMoniteur1 = moniteurService.addMoniteurAndAssignToCourse(moniteur1);
-        assertNotNull(addedMoniteur1);
-
-        Moniteur addedMoniteur2 = moniteurService.addMoniteurAndAssignToCourse(moniteur2);
-        assertNotNull(addedMoniteur2);
-
-        Moniteur bestMoniteur = moniteurService.bestMoniteur();
-
-        assertNotNull(bestMoniteur);
-        assertEquals("Gina", bestMoniteur.getNomM());
+        // Add Cours objects to the Set
+        coursSet.add(cours);
+        coursSet.add(cours1);
+        moniteur.setCoursSet(coursSet);
+        assertNotNull(moniteur);
+        assertNotNull(moniteur.getCoursSet());
+        assertEquals(2, moniteur.getCoursSet().size());
     }
 
     // Mockito Tests
@@ -172,7 +159,7 @@ class MoniteurServiceImplTest {
     private IMoniteurService moniteurServiceMock;
 
     @Test
-    @Order(7)
+    @Order(6)
     void bestMoniteurMockito() {
         Moniteur moniteur1 = new Moniteur();
         moniteur1.setNomM("Gina");

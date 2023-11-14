@@ -5,6 +5,7 @@ import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,9 +16,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @AllArgsConstructor
 @Slf4j
 public class MoniteurServiceImpl implements IMoniteurService{
-
-    MoniteurRepository moniteurRepository;
-    CoursRepository coursRepository;
+    @Autowired
+   private MoniteurRepository moniteurRepository;
+    @Autowired
+   private CoursRepository coursRepository;
     @Override
     public List<Moniteur> retrieveAllMoniteurs() {
         return moniteurRepository.findAll();
