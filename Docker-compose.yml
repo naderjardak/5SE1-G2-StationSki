@@ -10,30 +10,27 @@ services:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
+  angular-app:
+    build:
+      context: ./
+    image: ibrahimbenkhalifa/stationskiangular
+    ports:
+      - "4200:4200"
+    depends_on:
+      - gestion-station-ski
   gestion-station-ski:
     build:
       context: ./
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
-
+    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: "123456"  # Set to an empty string
     ports:
       - "8089:8089"
     stdin_open: true
     tty: true
-
-
-
-  angular-app:
-   build:
-      context: ./
-   image: ibrahimbenkhalifa/stationskiangular
-   ports:
-      - "4200:4200"
-   depends_on:
-      - gestion-station-ski
 
 volumes:
   db:
