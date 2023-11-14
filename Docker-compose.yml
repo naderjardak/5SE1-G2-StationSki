@@ -28,11 +28,12 @@ services:
       - .m2:/root/.m2
 
 
-#  angular-app:
-#    build:
-#      context: ./
-#    image: ibrahimbenkhalifa/stationskiangular
-#    ports:
-#      - "4200:4200"
-#    depends_on:
-#      - stationSki
+  angular-app:
+    build:
+      context: ./
+    image: ibrahimbenkhalifa/stationskiangular
+    ports:
+      - "4200:4200"
+    depends_on:
+      - stationSki
+
