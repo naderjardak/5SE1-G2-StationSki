@@ -15,7 +15,11 @@
     <description>stationSki</description>
     <properties>
         <java.version>1.8</java.version>
+
+            <start-class>com.baeldung.demo.DemoApplication</start-class>
+
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.jacoco</groupId>
@@ -92,6 +96,11 @@
                         <configuration>
                             <finalName>Ski</finalName>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
                     </execution>
 
                 </executions>
