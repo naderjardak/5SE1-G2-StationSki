@@ -1,9 +1,10 @@
-package com.example.stationski.services;
+package com.example.stationski;
 
 import com.example.stationski.StationSkiApplication;
 import com.example.stationski.entities.Moniteur;
 import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
+import com.example.stationski.services.IMoniteurService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
