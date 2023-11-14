@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jdk-slim
 EXPOSE 8089
-COPY ./target/tpmagasin.jar /app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ADD target/stationSki-1.2.6.jar docker-spring-boot.jar
+ENTRYPOINT ["java","-jar","s/docker-spring-boot.jar"]
