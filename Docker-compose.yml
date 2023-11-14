@@ -1,6 +1,8 @@
 version: "3.8"
 services:
   mysqldb:
+    build:
+      context: ./
     image: mysql:5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
@@ -19,6 +21,8 @@ services:
       - gestion-station-ski
 
   gestion-station-ski:
+    build:
+      context: ./
     depends_on:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
