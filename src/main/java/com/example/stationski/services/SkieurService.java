@@ -37,6 +37,8 @@ public class SkieurService implements ISkieurService{
         return skieur;
     }
 
+
+
     @Transactional
     public Skieur addSkieurAndAssignToCourse(SkieurModel skieurModel, Long numCourse) {
         log.info("debut methode addSkieurAndAssignToCourse");
