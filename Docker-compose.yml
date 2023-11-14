@@ -27,7 +27,7 @@ services:
       - mysqldb
     image: ibrahimbenkhalifa/stationski
     environment:
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: "123456"
     ports:
       - "8089:8089"
     stdin_open: true
