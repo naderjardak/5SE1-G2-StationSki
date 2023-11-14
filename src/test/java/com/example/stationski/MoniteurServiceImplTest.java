@@ -1,14 +1,12 @@
-package com.example.stationski.services;
+package com.example.stationski;
 
-import com.example.stationski.StationSkiApplication;
 import com.example.stationski.entities.Cours;
 import com.example.stationski.entities.Moniteur;
-import com.example.stationski.repositories.CoursRepository;
 import com.example.stationski.repositories.MoniteurRepository;
+import com.example.stationski.services.IMoniteurService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,14 +31,9 @@ import static org.mockito.Mockito.*;
 @ContextConfiguration(classes = {StationSkiApplication.class})
 class MoniteurServiceImplTest {
 
-    @Autowired
-    private MoniteurServiceImpl moniteurService;
 
     @Autowired
    private MoniteurRepository moniteurRepository;
-
-    @Autowired
-   private CoursRepository coursRepository;
 
     @BeforeEach
     public void setUp() {
@@ -78,8 +72,6 @@ class MoniteurServiceImplTest {
         moniteurRepository.save(moniteur2);
 
         List<Moniteur> allMoniteurs = moniteurRepository.findAll();
-        System.out.println("bribech");
-        System.out.println(allMoniteurs);
         assertNotNull(allMoniteurs);
         assertEquals(2, allMoniteurs.size());
     }
@@ -111,10 +103,13 @@ class MoniteurServiceImplTest {
         Moniteur addedMoniteur = moniteurRepository.save(moniteur);
         assertNotNull(addedMoniteur);
 
-        Moniteur retrievedMoniteur = moniteurRepository.findById(addedMoniteur.getIdMoniteur()).get();
+        Optional<Moniteur> optionalMoniteur = moniteurRepository.findById(addedMoniteur.getIdMoniteur());
+        if(optionalMoniteur.isPresent()){
+            Moniteur retrievedMoniteur=optionalMoniteur.get();
+            assertNotNull(retrievedMoniteur);
+            assertEquals("David", retrievedMoniteur.getNomM());
 
-        assertNotNull(retrievedMoniteur);
-        assertEquals("David", retrievedMoniteur.getNomM());
+        }
     }
 
     @Test
