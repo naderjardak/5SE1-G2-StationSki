@@ -10,11 +10,12 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>stationSki</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <name>stationSki</name>
     <description>stationSki</description>
     <properties>
         <java.version>1.8</java.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -57,9 +58,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.9</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -67,12 +68,10 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
@@ -80,7 +79,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.example.stationski.StationSkiApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -88,18 +86,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>Ski</finalName>
-                        </configuration>
-                    </execution>
-
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -128,12 +114,10 @@
                     <target>9</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
+
+
     <distributionManagement>
         <repository>
             <id>deploymentRepos</id>
