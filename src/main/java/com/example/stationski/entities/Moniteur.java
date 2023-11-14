@@ -10,25 +10,22 @@ import java.util.Set;
 
 
 @Entity
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    @Table( name = "Moniteur")
-    public class Moniteur implements Serializable {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name="idMoniteur")
-        private Integer idMoniteur; // Clé primaire
-        private Long numMoniteur;
-        private String nomM;
-        private String prenomM;
-        private LocalDate dateRecru;
-        private float prime;
+@Getter
+@Setter
+@NoArgsConstructor
+@Table( name = "Moniteur")
+public class Moniteur implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idMoniteur")
+    private Integer idMoniteur; // Clé primaire
+    private Long numMoniteur;
+    private String nomM;
+    private String prenomM;
+    private LocalDate dateRecru;
+    private float prime;
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Cours> coursSet;
 
-    }
-
+}

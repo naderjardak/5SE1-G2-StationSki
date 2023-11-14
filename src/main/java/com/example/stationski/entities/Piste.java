@@ -11,9 +11,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Piste implements Serializable {
 
     @Id
@@ -30,6 +30,5 @@ public class Piste implements Serializable {
     @ManyToMany(mappedBy = "pistes")
     @JsonIgnore
     private Set<Skieur> skieurs;
-}
 
-//tess
+}
