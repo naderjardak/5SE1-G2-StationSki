@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  stationSki:
-    build:
-      context: ./
-    image: ibrahimbenkhalifa/stationski
-
-    ports:
-      - 8089:8089
-    depends_on:
-      - db
-    volumes:
-      - .m2:/root/.m2
-
   db:
     image: mysql:5.7
     build:
@@ -27,6 +15,19 @@ services:
     volumes:
       - /path/to/mysql/data:/var/lib/mysql
       - /path/to/mysql/conf:/etc/mysql/conf.d
+  stationSki:
+    build:
+      context: ./
+    image: ibrahimbenkhalifa/stationski
+    depends_on:
+      - db
+    ports:
+     - "8089:8089"
+
+    volumes:
+      - .m2:/root/.m2
+
+
   angular-app:
     build:
       context: ./
