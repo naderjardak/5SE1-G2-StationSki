@@ -1,8 +1,8 @@
 package com.example.stationski.services;
 
-import com.example.stationski.entities.Abonnement;
-import com.example.stationski.entities.TypeAbonnement;
-import com.example.stationski.repositories.AbonnementRepository;
+import com.example.stationski.entities.*;
+
+import com.example.stationski.repositories.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

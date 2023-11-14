@@ -15,11 +15,7 @@
     <description>stationSki</description>
     <properties>
         <java.version>1.8</java.version>
-
-            <start-class>com.baeldung.demo.DemoApplication</start-class>
-
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.jacoco</groupId>
@@ -70,6 +66,11 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
 
@@ -97,21 +98,8 @@
                             <finalName>Ski</finalName>
                         </configuration>
                     </execution>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
 
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.baeldung.demo.DemoApplication</mainClass>
-                    <layout>JAR</layout>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -140,49 +128,11 @@
                     <target>9</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.2.RELEASE</version>
-                <configuration>
-                    <!--suppress UnresolvedMavenProperty -->
-                    <mainClass>${spring.boot.mainclass}</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.1.1</version>
-                <configuration>
-                    <imageName>hello-world</imageName>
-                    <baseImage>java</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint> <resources>
-                    <resource> <targetPath>/</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.jar</include>
-                    </resource>
-                </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
-
-    <!-- Add this to your pom.xml file -->
-
-
-
-
-
-
-    <!-- Deploy to Nexus -->
     <distributionManagement>
         <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
+            <id>deploymentRepos</id>
             <url>http://192.168.1.192:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
