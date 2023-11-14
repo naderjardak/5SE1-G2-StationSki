@@ -2,6 +2,8 @@ version: '3'
 
 services:
   stationSki:
+    build:
+      context: ./
     image: ibrahimbenkhalifa/stationski
     restart: on-failure
     ports:
@@ -13,6 +15,8 @@ services:
 
   db:
     image: mysql:5.7
+    build:
+      context: ./
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
